@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2009 - 2014 RoboPeak Team
  *  http://www.robopeak.com
- *  Copyright (c) 2014 - 2019 Shanghai Slamtec Co., Ltd.
+ *  Copyright (c) 2014 - 2020 Shanghai Slamtec Co., Ltd.
  *  http://www.slamtec.com
  *
  */
@@ -32,17 +32,36 @@
  *
  */
 
-#include "sdkcommon.h"
-#include "hal/thread.h"
+#pragma once
 
-#if defined(_WIN32)
-#include "arch/win32/winthread.hpp"
-#elif defined(_MACOS)
-#include "arch/macOS/thread.hpp"
-#elif defined(__GNUC__)
-#include "arch/linux/thread.hpp"
+
+//------
+/* _countof helper */
+#if !defined(_countof)
+#if !defined(__cplusplus)
+#define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0]))
 #else
-#error no threading implemention found for this platform.
+extern "C++"
+{
+template <typename _CountofType, size_t _SizeOfArray>
+char (*__countof_helper( _CountofType (&_Array)[_SizeOfArray]))[_SizeOfArray];
+#define _countof(_Array) sizeof(*__countof_helper(_Array))
+}
+#endif
 #endif
 
+/* _offsetof helper */
+#if !defined(offsetof)
+#define offsetof(_structure, _field) ((_word_size_t)&(((_structure *)0x0)->_field))
+#endif
+
+
+#define BEGIN_STATIC_CODE( _blockname_ ) \
+    static class _static_code_##_blockname_ {   \
+    public:     \
+        _static_code_##_blockname_ () 
+
+
+#define END_STATIC_CODE( _blockname_ ) \
+    }   _instance_##_blockname_;
 
