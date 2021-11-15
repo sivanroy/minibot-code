@@ -1,30 +1,63 @@
 import RPi.GPIO as GPIO
 
-class Motor(object):
+MAX_SPEED = 100
 
-    def __init__(self, PWM_PIN, DIR_PIN):
-        self.PWM = PWM_PIN
-        self.DIR = DIR_PIN
-
-    def init(self):
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.PWM, GPIO.OUT)
-        GPIO.setup(self.DIR, GPIO.OUT)
-
-        PWM1 = GPIO.PWM(PWM1, 20000)  # left wheel
-        PWM2 = GPIO.PWM(PWM2, 20000)  # right wheel
-
-def motor_init():
+def io_init():
     PWM1, PWM2, DIR1, DIR2 = 12, 13, 5, 6
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(PWM1,GPIO.OUT)
-    GPIO.setup(PWM2,GPIO.OUT)
-    GPIO.setup(DIR1,GPIO.OUT)
-    GPIO.setup(DIR2,GPIO.OUT)
+    GPIO.setup(PWM1, GPIO.OUT)
+    GPIO.setup(PWM2, GPIO.OUT)
+    GPIO.setup(DIR1, GPIO.OUT)
+    GPIO.setup(DIR2, GPIO.OUT)
 
-    PWM1 = GPIO.PWM(PWM1,20000)# left wheel
-    PWM2 = GPIO.PWM(PWM2,20000)# right wheel
-    PWM1.start(0)
-    PWM2.start(0)
+class Motor(object):
+    MAX_SPEED = 100
 
-print("a")
+    def __init__(self, PWM_PIN, DIR_PIN):
+        self.PWM = GPIO.PWM(self.PWM_PIN, 20000)
+        self.PWM_PIN = PWM_PIN
+        self.DIR_PIN = DIR_PIN
+
+    def start(self):
+        io_init()
+        self.PWM.start(0)
+
+    def set_speed(self, speed):
+        if speed < 0:
+            speed = -speed
+            dir_value = 0
+        else:
+            dir_value = 1
+
+        if speed > MAX_SPEED:
+            speed = MAX_SPEED
+
+        io_init()
+        GPIO.output(self.DIR_PIN, dir_value)
+        self.PWM.ChangeDutyCycle(speed)
+
+    def stop(self):
+        self.PWM.ChangeDutyCycle(0)
+
+
+class Motors(object):
+    MAX_SPEED = 100
+
+    def __init__(self):
+        self.motor_l = Motor(12, 5)  # left  wheel
+        self.motor_r = Motor(13, 6)  # right wheel
+
+    def start_all(self):
+        self.motor_l.start()
+        self.motor_r.start()
+
+    def stop_all(self):
+        self.motor_l.stop()
+        self.motor_r.stop()
+
+    def set_speeds(self, speed_l, speed_r):
+        self.motor_l.set_speed(speed_l)
+        self.motor_r.set_speed(speed_r)
+
+
+motors = Motors()
