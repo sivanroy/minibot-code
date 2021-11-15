@@ -1,0 +1,1 @@
+gcc -o MyProgram main.cpp
