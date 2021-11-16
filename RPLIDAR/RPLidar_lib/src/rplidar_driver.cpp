@@ -30,6 +30,7 @@
   *
   */
 
+
 #include "sdkcommon.h"
 #include "hal/abs_rxtx.h"
 #include "hal/thread.h"
@@ -41,6 +42,8 @@
 #include "rplidar_driver.h"
 #include "sl_crc.h" 
 #include <algorithm>
+
+
 
 namespace rp { namespace standalone{ namespace rplidar {
 

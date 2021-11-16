@@ -49,6 +49,7 @@ namespace rp { namespace standalone{ namespace rplidar {
 //    DRIVER_TYPE_TCP = 0x1,
 //    DRIVER_TYPE_UDP = 0x2,
 //};
+
 class RPlidarDriver {
 public:
     enum {

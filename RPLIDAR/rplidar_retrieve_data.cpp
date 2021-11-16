@@ -7,7 +7,7 @@
 *
 */
 
- void creat_lidar_instance(){
+ void create_lidar_instance(){
  	///  Create a communication channel instance
     //sl::IChannel* _channel;
     sl::Result<sl::IChannel*> channel = sl::createSerialPortChannel("/dev/ttyUSB0", 256000);//check baudrate
