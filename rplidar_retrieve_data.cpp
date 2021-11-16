@@ -41,20 +41,20 @@
         fprintf(stderr, "Failed to connect to LIDAR %08x\r\n", res);
     }
     //start motor
-    //lidar->startMotor();
+    lidar->startMotor();
 
     //start scan
-    //std::vector<LidarScanMode> scanModes;
-    //lidar_drv->getAllSupportedScanModes(scanModes);
+    std::vector<LidarScanMode> scanModes;
+    lidar_drv->getAllSupportedScanModes(scanModes);
 
-    sl::LidarScanMode scanMode;//normal scan
-    (*lidar)->startScan(false, true, 0, &scanMode);
+    lidar->startScan(false, true, 0, &scanMode); //typical scan mode
 
     //grab scan data
+
     // TODO
 
-    //lidar->stopMotor();	
+    lidar->stopMotor();	
     /// Delete Lidar Driver and channel Instance
-    delete *lidar;
-    delete *channel;
+    * delete *lidar;
+    * delete *channel;
 }
