@@ -1,23 +1,28 @@
 //#include "RPLidar_lib/include/rplidar_driver.h"
-#include "RPLidar_lib/include/sl_lidar.h"
-#include "RPLidar_lib/include/sl_lidar_driver.h"
-#include <assert.h>
-
 /*give a pointer in which store the data
 *
 */
+#include "RPLidar_lib/include/sl_lidar.h"
+#include "RPLidar_lib/include/sl_lidar_driver.h"
+#include <assert.h>
+#include <iostream>
 
- void create_lidar_instance(){
+int main() {
+    std::cout << "Hello \n";
+    return 0;
+}
+using namespace sl;
+void lid(){
  	///  Create a communication channel instance
     //sl::IChannel* _channel;
-    sl::Result<sl::IChannel*> channel = sl::createSerialPortChannel("/dev/ttyUSB0", 256000);//check baudrate
+    Result<IChannel*> channel = createSerialPortChannel("/dev/ttyUSB0", 256000);//check baudrate
     assert((bool)channel);
     assert(*channel);
 
     ///  Create a LIDAR driver instance
-  	auto lidar = sl::createLidarDriver();
+  	auto lidar = createLidarDriver();
     assert((bool)lidar);
-    assert(*lidar);
+    assert(*lidar); 
 
     auto res = (*lidar)->connect(*channel);
     assert(SL_IS_OK(res));
@@ -31,7 +36,7 @@
         res = (*lidar)->getDeviceInfo(deviceInfo);
         if(SL_IS_OK(res)){
             printf("Model: %d, Firmware Version: %d.%d, Hardware Version: %d\n",
-            deviceInfo.model,
+            deviceInfo.model, 
             deviceInfo.firmware_version >> 8, deviceInfo.firmware_version & 0xffu,
             deviceInfo.hardware_version);
         }else{
@@ -47,20 +52,21 @@
     //std::vector<LidarScanMode> scanModes;
     //lidar_drv->getAllSupportedScanModes(scanModes);
 
-    sl::LidarScanMode scanMode;//normal scan
+    LidarScanMode scanMode;//normal scan
 
     (*lidar)->startScan(false, true, 0, &scanMode);
 
     //grab scan data
-    sl_lidar_response_measurement_node_hq_t nodes[8192];
-    size_t nodeCount = sizeof(nodes)/sizeof(sl_lidar_response_measurement_node_hq_t);
+    //sl_lidar_response_measurement_node_hq_t nodes[8192];
+    //size_t nodeCount = sizeof(nodes)/sizeof(sl_lidar_response_measurement_node_hq_t);
+    /*
     res = lidar->grabScanDataHq(nodes, nodeCount);
 
     if (IS_FAIL(res))
     {
         int i = 0;// failed to get scan data
     }
-
+    */
 
     // TODO
 
@@ -69,3 +75,6 @@
     delete *lidar;
     delete *channel;
 }
+
+
+ 

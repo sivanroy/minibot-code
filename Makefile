@@ -5,20 +5,25 @@
 # Highly
 # BASED ON :
 # https://www.softwaretestinghelp.com/cpp-makefile-tutorial/
+# https://www.tutorialspoint.com/makefile/makefile_dependencies.htm
 
 CC = g++
 CFLAGS = -Wall -g
- 
+DIR = RPLIDAR
+INC = RPLIDAR/RPLidar_lib/include
+SRC = RPLIDAR/RPLidar_lib/src
+IN =  RPLIDAR/RPLidar_lib
+
 # ****************************************************
-# Targets needed to bring the executable up to date
- 
-main: main.o # Point.o Square.o
-	$(CC) $(CFLAGS) -o main main.o #Point.o Square.o
-# The main.o target can be written more simply
- 
-main.o: main.cpp # Point.h Square.h
+
+main: main.o rplidar_retrieve_data.o
+	$(CC) $(CFLAGS) -o main main.o rplidar_retrieve_data.o
+
+main.o: main.cpp $(DIR)/rplidar_retrieve_data.cpp $(INC)/sl_lidar.h $(INC)/sl_lidar_driver.h
 	$(CC) $(CFLAGS) -c main.cpp
 
-#Point.o: Point.h
+rplidar_retrieve_data.o: $(DIR)/rplidar_retrieve_data.cpp $(IN)/sl_lidar.h $(IN)/sl_lidar_driver.h 
+	$(CC) $(CFLAGS) -c $(DIR)/rplidar_retrieve_data.cpp $(IN)/sl_lidar.h $(IN)/sl_lidar_driver.h
+#clean
+#	rm *.o
 
-#Square.o: Square.h Point.h

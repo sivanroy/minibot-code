@@ -1,6 +1,13 @@
 from rplidar import RPLidar
 import RPi.GPIO as GPIO
 import time
+import numpy as np
+
+
+MAXDIST = 2000
+MINDIST = 200
+ERROR = 30
+DC = 0.5
 
 ENA1, ENA2, DIR1, DIR2 = 12, 13, 5, 6
 GPIO.setmode(GPIO.BCM)
@@ -18,60 +25,66 @@ lidar = RPLidar('/dev/ttyUSB0')
 info = lidar.get_info()
 print(info)
 
+def left_wheel(on,high=1):
+    if (high):
+        GPIO.output(DIR2, GPIO.HIGH)
+    else:
+        GPIO.output(DIR2, GPIO.LOW)
+    if (on):
+        PWM1.ChangeDutyCycle(DC)
+    else:
+        PWM1.ChangeDutyCycle(0)
+        #GPIO.output(DIR2, GPIO.LOW)
 
-for i, scan in enumerate(lidar.iter_scans()): #each scan = [quality,angle,dist]
-    theta_max = 0
-    dist_max = 0
-    i = 0
-    prev_angle = 0
-    
-    while (i < len(scan)):
-        (quality,angle,dist) = scan[i]
-        i+=1
-        error = 20
-        
-        if(prev_angle-angle > 1): # after one tour, do smthg
-            if (dist_max<200): #30cm
-                PWM1.ChangeDutyCycle(0)
-                PWM2.ChangeDutyCycle(0)
-                print('stop')
-            elif(dist_max > 700):
-                PWM1.ChangeDutyCycle(0)
-                PWM2.ChangeDutyCycle(0)
-                print('noting')      
-                
-            else:
-                print(theta_max)
-                if (theta_max > 180+error) :
-                    GPIO.output(DIR1, GPIO.LOW)
-                    PWM1.ChangeDutyCycle(2)
-                    GPIO.output(DIR2, GPIO.HIGH)
-                    PWM2.ChangeDutyCycle(2)
-                    print('+')
-                elif (theta_max < 180-error):
-                    GPIO.output(DIR1, GPIO.HIGH)
-                    PWM1.ChangeDutyCycle(2)
-                    GPIO.output(DIR2, GPIO.LOW)
-                    PWM2.ChangeDutyCycle(2)
-                    print('-')
-                else :
-                    GPIO.output(DIR1, GPIO.HIGH)
-                    PWM1.ChangeDutyCycle(2)
-                    GPIO.output(DIR2, GPIO.HIGH)
-                    PWM2.ChangeDutyCycle(2)
-                    print('equ')
-            dist_max = 0
-            theta_max = 0
-            
-        else: #not a tour done
-            if (dist_max < dist):
-                dist_max = dist
-                theta_max = angle
-                
-        prev_angle = angle
+
+def right_wheel(on,high=1):
+    if (high):
+        GPIO.output(DIR1, GPIO.HIGH)
+    else:
+        GPIO.output(DIR1, GPIO.LOW)
+    if (on):
+        PWM2.ChangeDutyCycle(DC)
+        GPIO.output(DIR1, GPIO.HIGH)
+    else:
+        PWM2.ChangeDutyCycle(0)
+        #GPIO.output(DIR2, GPIO.LOW)
+
+for i,lidar_scan in enumerate(lidar.iter_scans()):
+    theta = []
+    dist  = []
+    #print('%d: Got %d measurments' % (i, len(lidar_scan)))
+    for scan in (lidar_scan): #each scan = [quality,angle,dist]
+        theta.append(scan[1])
+        dist.append(scan[2])
+    max_index= np.where(dist == np.amin(np.array(dist)))[0][0]
+    dist_p = dist[max_index]
+    theta_p = theta[max_index]
+
+    if (dist_p < MINDIST or dist_p > MAXDIST):
+        left_wheel(0)
+        right_wheel(0)
+        #print('stop')
+    elif (theta_p < 180-ERROR):
+        left_wheel(0)
+        right_wheel(1)
+        #print('+')
+    elif (theta_p > 180+ERROR):
+        left_wheel(1)
+        right_wheel(0)
+        #print('-')
+    else:
+        left_wheel(1)
+        right_wheel(1) 
+        #print('straigth')
+
 
 """
 lidar.stop()
 lidar.stop_motor()
 lidar.disconnect()
 """
+
+
+
+
+
