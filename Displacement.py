@@ -15,7 +15,7 @@ class Motor(object):
 
     def __init__(self, PWM_PIN, DIR_PIN):
         io_init()
-        self.PWM = GPIO.PWM(self.PWM_PIN, 20000)
+        self.PWM = GPIO.PWM(PWM_PIN, 20000)
         self.PWM_PIN = PWM_PIN
         self.DIR_PIN = DIR_PIN
 
