@@ -6,7 +6,7 @@ from Displacement import motors, MAX_SPEED
 
 
 MAXDIST = 600
-MINDIST = 200
+MINDIST = 300
 ERROR = 20
 speed = 0.5
 
