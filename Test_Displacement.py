@@ -21,5 +21,5 @@ def test():
     motors.set_speeds(speed, -speed)
 
     time.sleep(2)
-    
+
     motors.stop_all()

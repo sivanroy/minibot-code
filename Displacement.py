@@ -14,12 +14,12 @@ class Motor(object):
     MAX_SPEED = 100
 
     def __init__(self, PWM_PIN, DIR_PIN):
+        io_init()
         self.PWM = GPIO.PWM(self.PWM_PIN, 20000)
         self.PWM_PIN = PWM_PIN
         self.DIR_PIN = DIR_PIN
 
     def start(self):
-        io_init()
         self.PWM.start(0)
 
     def set_speed(self, speed):
@@ -32,7 +32,6 @@ class Motor(object):
         if speed > MAX_SPEED:
             speed = MAX_SPEED
 
-        io_init()
         GPIO.output(self.DIR_PIN, dir_value)
         self.PWM.ChangeDutyCycle(speed)
 
