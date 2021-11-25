@@ -1,0 +1,487 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/simulation/modelsim
+vadder
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z2 !s110 1637311620
+!i10b 1
+!s100 70D5Mk9RZmQ`Pjh^j=eg=2
+IID:>=GU2@`?WI<?dWi1cP1
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+Z4 !s105 MyARM_MultiCycle_sv_unit
+S1
+R0
+Z5 w1636886072
+Z6 8D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyARM_MultiCycle.sv
+Z7 FD:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyARM_MultiCycle.sv
+L0 396
+Z8 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z9 !s108 1637311620.000000
+Z10 !s107 D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyARM_MultiCycle.sv|
+Z11 !s90 -reportprogress|300|-sv|-work|work|+incdir+D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle|D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyARM_MultiCycle.sv|
+!i113 1
+Z12 o-sv -work work
+Z13 !s92 -sv -work work +incdir+D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle
+Z14 tCvgOpt 0
+valu
+R1
+R2
+!i10b 1
+!s100 d9Y:m4oe_SElI5ica2gFQ3
+IZ>zEnHYTK]FneizbL8DFV1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 439
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+varm
+R1
+R2
+!i10b 1
+!s100 EkJU?onkf=O^`EIZESF;n1
+I>VLjF2SP[Z32P:4Z=LhJ[3
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 61
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vcondcheck
+R1
+R2
+!i10b 1
+!s100 lD:?dRXd?=>DYe@kQdaCV2
+Icj:5HIDDnEOK0oA@kYI7A2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 261
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vcondlogic
+R1
+R2
+!i10b 1
+!s100 f<C4@Q7HPIOb5d8BK[cdA2
+IESXiSRmlMYY5anHANo>iJ2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 236
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vcontroller
+R1
+R2
+!i10b 1
+!s100 h1c;bSzfZdV>GP0L46?0f2
+I^^4Ed7TJoGi`5adcbXL3i2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 87
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vdatapath
+R1
+R2
+!i10b 1
+!s100 6DYehf8IfC:gki1<c;k9E0
+IZXgQ]5Um=YZY3311UIcXK1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 293
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vdecode
+R1
+R2
+!i10b 1
+!s100 0JQaHHb?dGBDhX0GGg4JV0
+IcZPc8^fa1n[EK6fW>WT>71
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 119
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vextend
+R1
+R2
+!i10b 1
+!s100 l<MBY=ACbzhY3]KRJ<VjJ0
+I]CZ;<SU:PgaajU80L1[g[1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 377
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vflopenr
+R1
+R2
+!i10b 1
+!s100 e6?X>0b@zJh=hN4HCnMo:2
+Ia;CmiCLF7jQWoYHIVQTmP3
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 405
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vflopr
+R1
+R2
+!i10b 1
+!s100 =U]zDJV=O9MmE_mjH]Na:0
+I07Mm3lgnVGaj>:RU^A^PU2
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 417
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vmainfsm
+R1
+R2
+!i10b 1
+!s100 3d5M<Z4?1]PzI@f@XZoGl3
+I@f1e3]bRU=R^bV^GR]z=50
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 166
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vmem
+R1
+R2
+!i10b 1
+!s100 :ibb=[O]f8^iFLK6Lj3Wi1
+I9>;dF[SS0lfKbm[Zfo@IN2
+R3
+Z15 !s105 MyDE0_Nano_sv_unit
+S1
+R0
+Z16 w1637311116
+Z17 8D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyDE0_Nano.sv
+Z18 FD:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyDE0_Nano.sv
+L0 143
+R8
+r1
+!s85 0
+31
+R9
+Z19 !s107 D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyDE0_Nano.sv|
+Z20 !s90 -reportprogress|300|-sv|-work|work|+incdir+D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle|D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyDE0_Nano.sv|
+!i113 1
+R12
+R13
+R14
+vmux2
+R1
+R2
+!i10b 1
+!s100 :k0hdT>CGO7:X>_WcWgD90
+I<P;<P:hV]z@8ef0aJ8@i43
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 429
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vmux3
+R1
+R2
+!i10b 1
+!s100 6U]Rf@l47CEP_R2HaA2Ih0
+IY9?FJaNAiV>I04KiEVDke1
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 345
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vMyDE0_Nano
+R1
+R2
+!i10b 1
+!s100 Q;KU81YF4[4Fcj]b1e`TQ2
+IdQNU28D73H1C7U;gQI2i=3
+R3
+R15
+S1
+R0
+R16
+R17
+R18
+L0 6
+R8
+r1
+!s85 0
+31
+R9
+R19
+R20
+!i113 1
+R12
+R13
+R14
+n@my@d@e0_@nano
+vMyTestbench
+R1
+R2
+!i10b 1
+!s100 EPKkVb5zYYL?clC5CzDZD0
+IhMkWAQamAKDcGgNljk>GA1
+R3
+!s105 MyTestbench_sv_unit
+S1
+R0
+w1636811663
+8D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyTestbench.sv
+FD:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyTestbench.sv
+L0 1
+R8
+r1
+!s85 0
+31
+R9
+!s107 D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyTestbench.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle|D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MyTestbench.sv|
+!i113 1
+R12
+R13
+R14
+n@my@testbench
+vregfile
+R1
+R2
+!i10b 1
+!s100 CDJC8F6RHza1`8oEB`d[;0
+I3;UiUIaC7;Q92I4mCIRb73
+R3
+R4
+S1
+R0
+R5
+R6
+R7
+L0 355
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R12
+R13
+R14
+vspi_slave
+R1
+R2
+!i10b 1
+!s100 >LSiL=lACVh_OX=dLM0^R3
+IChOzRGMgCRSXMDh8PNaSz0
+R3
+!s105 MySPI_sv_unit
+S1
+R0
+w1635959337
+8D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MySPI.sv
+FD:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MySPI.sv
+L0 1
+R8
+r1
+!s85 0
+31
+R9
+!s107 D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MySPI.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle|D:/UCL/Q7_LELEC2531/HW7/Quartus-MultiCycle/Quartus-MultiCycle/MySPI.sv|
+!i113 1
+R12
+R13
+R14
