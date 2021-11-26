@@ -1,4 +1,4 @@
-from Displacement import motors, MAX_SPEED
+from displacement import motors, MAX_SPEED
 import time
 
 def test():
