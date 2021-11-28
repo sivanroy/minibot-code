@@ -2,11 +2,12 @@ from rplidar import RPLidar
 import RPi.GPIO as GPIO
 import time
 import numpy as np
+#Used
 from displacement import motors, MAX_SPEED
 import controller as c
+import button
+from button import BT
 
-global BT
-BT = 0
 #begin motors
 motors.start_all()
 

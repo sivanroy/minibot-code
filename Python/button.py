@@ -2,12 +2,14 @@
 #https://raspberrypihq.com/use-a-push-button-with-raspberry-pi-gpio/
 import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
 
+global BT
+BT = 0
+
 def button_callback(channel):
     print("Button was pushed!")
     BT += 1
 
-BT = 0
-#PIN = 37
+#PIN = 37 //physical 
 PIN = 26#BCM
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BCM)

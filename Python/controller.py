@@ -1,6 +1,5 @@
 from displacement import motors, MAX_SPEED
 import numpy as np
-import button
 
 MAXDIST = 600
 MINDIST = 300
@@ -37,13 +36,14 @@ def follow(scan_data):
         motors.set_speeds(speed, speed)
 
 
-def controller(scan_data,BT):
-	if (BT == 1):
-		BT = 0;
+def controller(scan_data,On):
+	if (On == 0):
 		return 1
-	elif (BT == 1):
+
+	elif (On == 1):
 		follow(scan_data)
 		return 1
+
 	else:
 		motors.set_speeds(0,0)
 		return -1 

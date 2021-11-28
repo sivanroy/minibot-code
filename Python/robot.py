@@ -1,23 +1,42 @@
 import RPi.GPIO as GPIO
+from displacement import motors, MAX_SPEED
+
+class Sensors(object):
+    def __init__(self):
+        self.lidar = None
+
+class Actuators(object):
+    def __init__(self):
+        self.motors = Motors()
+
+    def set_speeds(self,speedl,speedr):
+        self.motors.set_speeds(speedl,speedr)
+
+class Infos(object):
+    def __init__(self):
+        self.button1 = 0
+        self.direction = 0
+        self.speed = 0
+        self.position = [0,0]    
+    def print_infos(self):
+        print("------------------------------\n \
+            button1 : {d} \n\
+            direction : {d} \n\
+            speed : {d} \n\
+            position : [{:2f},{:2f}] \n\
+            ------------------------------\nS".format(\
+                self.button1,self.direction,self.speed,\
+                self.position[0],self.position[1]))
+
 
 class Robot(object):
     def __init__(self):
-        self.motors = Motors()
-        self.buttons = Buttons()
+        self.sensors = Sensors()
+        self.actuators = Actuators()
         self.infos = Infos()
 
-    def rien(self, speed):
-        if speed < 0:
-            speed = -speed
-            dir_value = 0
-        else:
-            dir_value = 1
+    def set_speeds(self, speedl,speedr):
+        self.actuators.motors.set_speeds(speedl,speedr);
 
-        if speed > MAX_SPEED:
-            speed = MAX_SPEED
-
-        GPIO.output(self.DIR_PIN, dir_value)
-        self.PWM.ChangeDutyCycle(speed)
-
-    def stop(self):
-        self.PWM.ChangeDutyCycle(0)
+    def print_infos(self):
+        self.infos.print_infos()
