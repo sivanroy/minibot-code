@@ -8,14 +8,16 @@ module spi_slave(
 	input  logic			SPI_CS,
 	input  logic 			SPI_MOSI,
 	output logic 			SPI_MISO,
-	output logic[31:0] 	DataAddr,
-	input  logic[31:0] 	DataToRPi,
+	input  logic 			Data_WE,
+	input  logic[31:0] 	Data_Addr,
+	input  logic[31:0] 	Data_Write,
+	output logic[31:0] 	Data_Read,
 	input  logic			Clk
 );
 
 	logic [39:0] SPI_reg;
 
-/*
+
 //---Input Registers -(from PI to ARM) ------------------------
 
 	logic [31:0] mosiRAM[15:0];
@@ -27,7 +29,7 @@ module spi_slave(
 		if (mosiRAM_we) mosiRAM[SPI_reg[35:32]] <= SPI_reg[31:0];
 	end
 	
-//--- Output Registers - (from ARM to PI) ----------------------
+//--- Output Registers - (from ARM to PI)----------------------
 
 	logic [31:0] misoRAM[15:0];
 	logic [31:0] misoRAM_read;
@@ -37,8 +39,7 @@ module spi_slave(
 	always_ff @(posedge Clk) begin
 		if (Data_WE) misoRAM[Data_Addr[5:2]] <= Data_Write;
 	end
-*/
-
+	
 //---SPI Sysnchronization -------------------------------------
 
 	logic SPI_CLK_sync;
@@ -71,9 +72,7 @@ module spi_slave(
 		
 		if (SPI_reg_reset) 		SPI_reg <= 40'b0;
 		else if (SPI_reg_shift)	SPI_reg <= {SPI_reg[38:0], SPI_MOSI};
-		else if (SPI_reg_load)	begin
-			DataAddr <= SPI_reg[7:0]
-			SPI_reg <= {DataToRPi, SPI_reg[7:0]};
+		else if (SPI_reg_load)	SPI_reg <= {misoRAM_read, SPI_reg[7:0]};
 		
 		if (MISO_reset) 			SPI_MISO <= 0;
 		else if (SPI_reg_load)	SPI_MISO <= misoRAM_read[31];
