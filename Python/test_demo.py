@@ -2,12 +2,11 @@ from rplidar import RPLidar
 import RPi.GPIO as GPIO
 import time
 import numpy as np
-#Used
-from displacement import motors, MAX_SPEED
 import controller as c
+from robot import *
 
 #begin motors
-motors.start_all()
+#motors.start_all()
 
 #begin lidars
 lidar = RPLidar('/dev/ttyUSB0')

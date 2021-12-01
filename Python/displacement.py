@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 
 MAX_SPEED = 100
+FREQ = 20e3
 
 def io_init():
     PWM1, PWM2, DIR1, DIR2 = 12, 13, 5, 6

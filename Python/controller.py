@@ -1,14 +1,19 @@
-from displacement import motors, MAX_SPEED
+import displacement
 import numpy as np
+import RPi.GPIO as GPIO
+from robot import *
+from displacement import *
+import time
 
 MAXDIST = 600
 MINDIST = 300
 ERROR = 20
 speed = 0.5
 
-def follow(scan_data):
+def follow(scan_data,MyRobot):
     dist = scan_data[0]
     theta = scan_data[1]
+    motors = MyRobot.actuators.motors
     max_index = np.where(dist == np.amin(np.array(dist)))[0][0]
     dist_p = dist[max_index]
     theta_p = theta[max_index]
@@ -40,24 +45,24 @@ def dodge(scan_data):
 	return 1
 
 def controller(scan_data,MyRobot):
-    #gère le bouton
-    button1 = MyRobot.Buttons.button1
-	if (button1.isPushed() == 0):
-		return 1
+    Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
+    if (Mybutton1.isPushed() == 0):
+        return 1
     else:
-        if(button1.count()<2):
-            button1.clear()
+        if(Mybutton1.count()<2):
+            Mybutton1.clear()
             MyRobot.activate()
+            print(Mybutton1.print_infos())
+            print("Robot is ON\n")
             return 1
         else:
-            button1.clear()
+            Mybutton1.clear()
             MyRobot.shutdown()
-            return 1
+            MyRobot.actuators.motors.set_speeds(0,0)
+            print("stop the motors \n")
+            return -1 
+
     #gère le control
     if(MyRobot.isON()):
-    	follow(scan_data)
-		return 1
-
-	else:
-		motors.set_speeds(0,0)
-		return -1 
+        follow(scan_data,MyRobot)
+        return 1
