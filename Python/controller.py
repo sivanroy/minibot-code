@@ -39,13 +39,23 @@ def follow(scan_data):
 def dodge(scan_data):
 	return 1
 
-
-def controller(scan_data,On):
-	if (On == 0):
+def controller(scan_data,MyRobot):
+    #gère le bouton
+    button1 = MyRobot.Buttons.button1
+	if (button1.isPushed() == 0):
 		return 1
-
-	elif (On == 1):
-		follow(scan_data)
+    else:
+        if(button1.count()<2):
+            button1.clear()
+            MyRobot.activate()
+            return 1
+        else:
+            button1.clear()
+            MyRobot.shutdown()
+            return 1
+    #gère le control
+    if(MyRobot.isON()):
+    	follow(scan_data)
 		return 1
 
 	else:

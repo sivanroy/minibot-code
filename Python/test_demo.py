@@ -5,8 +5,6 @@ import numpy as np
 #Used
 from displacement import motors, MAX_SPEED
 import controller as c
-import button
-from button import BT
 
 #begin motors
 motors.start_all()
@@ -17,6 +15,8 @@ lidar.start_motor()
 info = lidar.get_info()
 print(info)
 
+MyRobot = Robot()
+
 #begin scan
 for i, lidar_scan in enumerate(lidar.iter_scans()):
     #set scan data
@@ -24,7 +24,7 @@ for i, lidar_scan in enumerate(lidar.iter_scans()):
     for scan in (lidar_scan):  # each scan = [quality,angle,dist]
         theta.append(scan[1])
         dist.append(scan[2])
-    info_c = c.controller([dist,theta],BT)
+    info_c = c.controller([dist,theta],MyRobot)
     if (info_c == -1):
         break
 
