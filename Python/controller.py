@@ -8,7 +8,7 @@ import time
 MAXDIST = 600
 MINDIST = 300
 ERROR = 20
-speed = 0.5
+speed = 1
 
 def follow(scan_data,MyRobot):
     dist = scan_data[0]
@@ -46,23 +46,21 @@ def dodge(scan_data):
 
 def controller(scan_data,MyRobot):
     Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
-    if (Mybutton1.isPushed() == 0):
-        return 1
+    if (Mybutton1.wasPushed() == 0):
+        if(MyRobot.isON()):
+            follow(scan_data,MyRobot)
     else:
         if(Mybutton1.count()<2):
             Mybutton1.clear()
             MyRobot.activate()
             print(Mybutton1.print_infos())
             print("Robot is ON\n")
-            return 1
         else:
             Mybutton1.clear()
             MyRobot.shutdown()
             MyRobot.actuators.motors.set_speeds(0,0)
             print("stop the motors \n")
             return -1 
+    return 1
 
-    #gère le control
-    if(MyRobot.isON()):
-        follow(scan_data,MyRobot)
-        return 1
+    

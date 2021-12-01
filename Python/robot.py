@@ -46,7 +46,7 @@ class Robot(object):
         self.infos.print_infos()
 
     def isON(self):
-        return self.on
+        return self.ON
 
     def activate(self):
         self.ON = 1

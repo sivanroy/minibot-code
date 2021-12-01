@@ -29,7 +29,8 @@ class Button(object):
     def print_infos(self):
         print("------------------------------\n\
             pin = {}\n\
-            ON =  {}\n".format(self.pin,self.ON))
+            ON =  {}\n\
+            ------------------------------\n".format(self.pin,self.ON))
 
 
 class Buttons(object):
