@@ -20,11 +20,11 @@ class Infos(object):
         self.position = [0,0]    
     def print_infos(self):
         print("------------------------------\n \
-            button1 : {d} \n\
-            direction : {d} \n\
-            speed : {d} \n\
-            position : [{:2f},{:2f}] \n\
-            ------------------------------\nS".format(\
+            button1 :   {d}\n\
+            direction : {d}\n\
+            speed :     {d}\n\
+            position : [{:2f},{:2f}]\n\
+            ------------------------------\n".format(\
                 self.button1,self.direction,self.speed,\
                 self.position[0],self.position[1]))
 

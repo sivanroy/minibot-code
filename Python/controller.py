@@ -36,6 +36,10 @@ def follow(scan_data):
         motors.set_speeds(speed, speed)
 
 
+def dodge(scan_data):
+	return 1
+
+
 def controller(scan_data,On):
 	if (On == 0):
 		return 1

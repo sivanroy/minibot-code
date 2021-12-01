@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 
 MAX_SPEED = 100
 
-
 def io_init():
     PWM1, PWM2, DIR1, DIR2 = 12, 13, 5, 6
     GPIO.setmode(GPIO.BCM)
@@ -14,7 +13,7 @@ def io_init():
 class Motor(object):
     MAX_SPEED = 100
     FREQ = 20e3
-    
+
     def __init__(self, PWM_PIN, DIR_PIN):
         io_init()
         self.PWM = GPIO.PWM(PWM_PIN, FREQ)
@@ -59,6 +58,3 @@ class Motors(object):
     def set_speeds(self, speed_l, speed_r):
         self.motor_l.set_speed(speed_l)
         self.motor_r.set_speed(speed_r)
-
-
-motors = Motors()
