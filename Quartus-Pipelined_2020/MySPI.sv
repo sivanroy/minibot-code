@@ -8,8 +8,8 @@ module spi_slave(
 	input  logic			SPI_CS,
 	input  logic 			SPI_MOSI,
 	output logic 			SPI_MISO,
-	output logic[31:0] 	DataAddr,
-	input  logic[31:0] 	DataToRPi,
+	output logic[31:0] 	DataAddr,       // address of what we want to read form DE0 to RPi
+	input  logic[31:0] 	DataToRPi,      // data to send to the RPi
 	input  logic			Clk
 );
 
@@ -63,7 +63,7 @@ module spi_slave(
 	
 	always_ff @(posedge Clk) begin
 	
-		if (SPI_CS_sync)			state <= S0;
+		if (SPI_CS_sync)			state <= S0;            // stay at S0 if CS = 1 (not enable SPI)
 		else 							state <= nextstate;
 		
 		if (SPI_cnt_reset) 	 	SPI_cnt <= 6'b0;
@@ -76,7 +76,7 @@ module spi_slave(
 			SPI_reg <= {DataToRPi, SPI_reg[7:0]};
 		
 		if (MISO_reset) 			SPI_MISO <= 0;
-		else if (SPI_reg_load)	SPI_MISO <= misoRAM_read[31];
+		else if (SPI_reg_load)	SPI_MISO <= DataToRPi[31];
 		else if (MISO_we)			SPI_MISO <= SPI_reg[39];
  			
 	end
@@ -109,10 +109,7 @@ module spi_slave(
 			S2 : if (~SPI_CLK_sync) begin			// negedge of SPI_CLK
 						MISO_we = 1;
 						if (SPI_cnt == 8) SPI_reg_load = 1;
-						if (SPI_cnt == 40) begin
-							if (SPI_reg[39] == 1) mosiRAM_we = 1;
-							nextstate = S3;
-						end
+						if (SPI_cnt == 40) nextstate = S3;
 						else nextstate = S1;
 					end
 					
