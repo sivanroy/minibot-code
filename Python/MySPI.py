@@ -17,22 +17,23 @@ sleep(0.1)
 GPIO.output(MyARM_ResetPin, GPIO.LOW)
 sleep(0.1)
 
-ToSPI = [0x80, 0x00, 0x4F, 0x00, 0x00]
-FromSPI = MySPI_FPGA.xfer2(ToSPI)
+i = 0
+stop = 4000
+while i < stop:
+    ToSPI_leftEnc = [0x00, 0x00, 0x00, 0x00, 0x00]
+    countLeftEnc = MySPI_FPGA.xfer2(ToSPI_leftEnc)
 
-ToSPI = [0x81, 0x00, 0x00, 0x00, 0x05]
-FromSPI = MySPI_FPGA.xfer2(ToSPI)
+    ToSPI_rightEnc = [0x01, 0x00, 0x00, 0x00, 0x00]
+    countRightEnc = MySPI_FPGA.xfer2(ToSPI_rightEnc)
 
-ToSPI = [0x82, 0x00, 0x00, 0x00, 0x04]
-FromSPI = MySPI_FPGA.xfer2(ToSPI)
+    ToSPI_leftOdo = [0x02, 0x00, 0x00, 0x00, 0x00]
+    countLeftOdo = MySPI_FPGA.xfer2(ToSPI_leftOdo)
 
-GPIO.output(MyARM_ResetPin, GPIO.HIGH)
-sleep(0.1)
-GPIO.output(MyARM_ResetPin, GPIO.LOW)
-sleep(1)
+    ToSPI_rightOdo = [0x03, 0x00, 0x00, 0x00, 0x00]
+    countRightOdo = MySPI_FPGA.xfer2(ToSPI_rightOdo)
 
-ToSPI = [0x03, 0x00, 0x00, 0x00, 0x00]
-FromSPI = MySPI_FPGA.xfer2(ToSPI)
-print(FromSPI)
+    print("countLeftOdo =", countLeftOdo)
+
+    i += 1
 
 

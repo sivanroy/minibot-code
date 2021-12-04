@@ -103,8 +103,10 @@ input logic 		     [1:0]		GPIO_1_IN
 
 	always_comb begin
 		case(DataAddr)
-			8'b0: count = countLeft;
-			8'b1: count = coutRight;
+			2'b00: count = countLeftEnc;
+			2'b01: count = countRightEnc;
+			2'b10: count = countLeftOdo;
+			2'b11: count = countRightOdo;
 		default: count = 32'b0;
 		endcase
 	end
@@ -115,16 +117,25 @@ input logic 		     [1:0]		GPIO_1_IN
 //  Encoder
 //=======================================================
 
-	logic [31:0] countLeft, countRight;
+	logic [31:0] countLeftEnc, countRightEnc, countLeftOdo, countRightOdo;
 
-	logic leftA, leftB, rightA, rightB;
-	assign leftA  = GPIO_1[0];
-	assign leftB  = GPIO_1_IN[0];
-	assign rightA = GPIO_1[2];
-	assign rightB = GPIO_1[1];	
+	logic leftEncA, leftEncB, rightEncA, rightEncB;
+	assign leftEncA  = GPIO_1[0];
+	assign leftEncB  = GPIO_1_IN[0];
+	assign rightEncA = GPIO_1[2];
+	assign rightEncB = GPIO_1[1];
 
-	Encoder leftEncoder(clk, leftA, leftB, countLeft);
-	Encoder rightEncoder(clk, rightA, rightB, countRight);
+	logic leftOdoA, leftOdoB, rightOdoA, rightOdoB;
+	assign leftOdoA  = GPIO_1[0];
+	assign leftOdoB  = GPIO_1_IN[0];
+	assign rightOdoA = GPIO_1[2];
+	assign rightOdoB = GPIO_1[1];
+
+	Encoder leftEnc(clk, leftEncA, leftEncB, countLeftEnc);
+	Encoder rightEnc(clk, rightEncA, rightEncB, countRightEnc);
+
+	Encoder leftOdo(clk, leftOdoA, leftOdoB, countLeftOdo);
+	Encoder rightOdo(clk, rightOdoA, rightOdoB, countRightOdo);
 
 endmodule
 
