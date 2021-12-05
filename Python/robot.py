@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO
 from displacement import *
 from buttons import *
+from controller import *
+
 class Sensors(object):
     def __init__(self):
         self.buttons = Buttons();
@@ -37,6 +39,7 @@ class Robot(object):
         self.ON = 0
         self.sensors = Sensors()
         self.actuators = Actuators()
+        self.controller = Controller()
         self.infos = Infos()
 
     def set_speeds(self, speedl,speedr):
