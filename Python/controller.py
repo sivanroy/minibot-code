@@ -7,8 +7,8 @@ import time
 from simple_pid import PID
 #https://pypi.org/project/simple-pid/#description
 
-P = 5
-I = 0.1
+P = 2
+I = 0.05
 D = 0
 
 class PID_obj(object):
@@ -52,6 +52,8 @@ class Controller(object):
         self.y = 0
         #PID's controller for each wheel
         self.PID_obj = PID_obj()
+        #DEO nano talk
+        self.DE02RPI = DEO2Rpi()
         #values of setpoint
         self.omega_ref_l = 0
         self.omega_ref_r = 0
@@ -67,3 +69,9 @@ class Controller(object):
     def set_cartesian_ref(self,new_x,new_y):
     	self.x_ref = new_x
     	self.y_ref = new_y
+
+        sp_r = 0
+        sp_l = 0
+
+        self.PID_obj.set_setpoint_r(sp_r)
+        self.PID_obj.set_setpoint_l(sp_l) 
