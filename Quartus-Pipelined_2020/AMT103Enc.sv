@@ -1,6 +1,6 @@
 
 module AMT103Enc(input  logic clk, A, B,
-		 output logic [31;0] Counts);
+		 output logic [31:0] Counts);
 		 
 logic [31:0] cnt, dt;
 logic reset;
