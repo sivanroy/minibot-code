@@ -8,7 +8,7 @@ module Encoder(input  logic clk, A, B,
 
 
 	always_ff @(posedge clk) begin
-		if (dt == 32'd50_000) begin // we compute the count incrementation every 50k clock -> 1 µs
+		if (dt == 32'd50_000) begin // we compute the count incrementation every 50k clock -> 1 ms
 			cnt <= cntPosA + cntPosB + cntNegA + cntNegB;
 			reset <= 1'b1;
 			dt <= 32'd0;
