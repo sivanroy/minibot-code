@@ -67,7 +67,7 @@ input logic 		     [1:0]		GPIO_1_IN
 	logic clk, reset;
 	
 	assign clk   = CLOCK_50;
-	assign reset = GPIO_0_PI[1];
+	//assign reset = GPIO_0_PI[1];
 
 //=======================================================
 //  SPI
@@ -94,12 +94,12 @@ input logic 		     [1:0]		GPIO_1_IN
 	assign GPIO_0_PI[13] = spi_cs ? 1'bz : spi_miso;  // MISO = pin 18 = GPIO_13
 	*/
 
-	// Connect to JP2 on the DE0-Nano : GPI0-1
-	assign spi_clk  		= GPIO_1[22];	// SCLK = pin 27 = GPIO_22
-	assign spi_cs   		= GPIO_1[20];	// CE0  = pin 25 = GPIO_20
-	assign spi_mosi     	= GPIO_1[23];	// MOSI = pin 28 = GPIO_23
+	// Connect to JP1 on the DE0-Nano : GPI0-0
+	assign spi_clk  		= GPIO_0_PI[22];	// SCLK = pin 27 = GPIO_22
+	assign spi_cs   		= GPIO_0_PI[20];	// CE0  = pin 25 = GPIO_20
+	assign spi_mosi     	= GPIO_0_PI[23];	// MOSI = pin 28 = GPIO_23
 
-	assign GPIO_1[21] = spi_cs ? 1'bz : spi_miso;  // MISO = pin 26 = GPIO_21
+	assign GPIO_0_PI[21] = spi_cs ? 1'bz : spi_miso;  // MISO = pin 26 = GPIO_21
 	
 
 
@@ -111,10 +111,10 @@ input logic 		     [1:0]		GPIO_1_IN
 
 	always_comb begin
 		case(DataAddr)
-			2'b00: count = countLeftEnc;
-			2'b01: count = countRightEnc;
-			2'b10: count = countLeftOdo;
-			2'b11: count = countRightOdo;
+			8'b00: count = countLeftEnc;
+			8'b01: count = countRightEnc;
+			8'b10: count = countLeftOdo;
+			8'b11: count = countRightOdo;
 		default: count = 32'b0;
 		endcase
 	end
@@ -127,34 +127,34 @@ input logic 		     [1:0]		GPIO_1_IN
 
 	/*
 	---------- PINs ----------
-	ENC 1A : pin 4  - GPIO_1[1]
-	ENC 1B : pin 6  - GPIO_1[3]
-	ENC 2A : pin 5  - GPIO_1[2]
-	ENC 2B : pin 8  - GPIO_1[5]
+	ENC 1A : pin 4  - GPIO_0_PI[1]
+	ENC 1B : pin 6  - GPIO_0_PI[3]
+	ENC 2A : pin 5  - GPIO_0_PI[2]
+	ENC 2B : pin 8  - GPIO_0_PI[5]
 
-	ODO 1A : pin 13 - GPIO_1[8]
-	ODO 1B : pin 14 - GPIO_1[9]
-	ODO 2A : pin 15 - GPIO_1[10]
-	ODO 2B : pin 16 - GPIO_1[11]
+	ODO 1A : pin 13 - GPIO_0_PI[8]
+	ODO 1B : pin 14 - GPIO_0_PI[9]
+	ODO 2A : pin 15 - GPIO_0_PI[10]
+	ODO 2B : pin 16 - GPIO_0_PI[11]
 
-	ECHO   : pin 21  - GPIO_1[16]
-	TRIGGER: pin 22  - GPIO_1[17]
+	ECHO   : pin 21  - GPIO_0_PI[16]
+	TRIGGER: pin 22  - GPIO_0_PI[17]
 	*/
 
-    // Encoder - Odometer
-    logic [31:0] countLeftEnc, countRightEnc, countLeftOdo, countRightOdo;
+   // Encoder - Odometer
+   logic [31:0] countLeftEnc, countRightEnc, countLeftOdo, countRightOdo;
 
 	logic leftEncA, leftEncB, rightEncA, rightEncB;
-	assign leftEncA  = GPIO_1[1];
-	assign leftEncB  = GPIO_1[3];
-	assign rightEncA = GPIO_1[2];
-	assign rightEncB = GPIO_1[5];
+	assign rightEncA = GPIO_0_PI[1];
+	assign rightEncB = GPIO_0_PI[3];
+	assign leftEncA  = GPIO_0_PI[2];
+	assign leftEncB  = GPIO_0_PI[5];
 
 	logic leftOdoA, leftOdoB, rightOdoA, rightOdoB;
-	assign leftOdoA  = GPIO_1[8];
-	assign leftOdoB  = GPIO_1[9];
-	assign rightOdoA = GPIO_1[10];
-	assign rightOdoB = GPIO_1[11];
+	assign rightOdoA = GPIO_0_PI[8];
+	assign rightOdoB = GPIO_0_PI[9];
+	assign leftOdoA  = GPIO_0_PI[10];
+	assign leftOdoB  = GPIO_0_PI[11];
 
 	Encoder leftEnc(clk, leftEncA, leftEncB, countLeftEnc);
 	Encoder rightEnc(clk, rightEncA, rightEncB, countRightEnc);

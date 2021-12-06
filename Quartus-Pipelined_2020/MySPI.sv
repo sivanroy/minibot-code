@@ -72,9 +72,9 @@ module spi_slave(
 		if (SPI_reg_reset) 		SPI_reg <= 40'b0;
 		else if (SPI_reg_shift)	SPI_reg <= {SPI_reg[38:0], SPI_MOSI};
 		else if (SPI_reg_load)	begin
-			DataAddr <= SPI_reg[7:0]
+			DataAddr <= SPI_reg[7:0];
 			SPI_reg <= {DataToRPi, SPI_reg[7:0]};
-		
+		end
 		if (MISO_reset) 			SPI_MISO <= 0;
 		else if (SPI_reg_load)	SPI_MISO <= DataToRPi[31];
 		else if (MISO_we)			SPI_MISO <= SPI_reg[39];
@@ -90,7 +90,6 @@ module spi_slave(
 		SPI_cnt_reset = 0; SPI_cnt_inc = 0;
 		SPI_reg_reset = 0; SPI_reg_shift = 0; SPI_reg_load = 0;
 		MISO_we = 0; MISO_reset = 0;
-		mosiRAM_we = 0;
 		
 		case (state)
 			S0 : if (~SPI_CS_sync) begin 			// negedge of SPI_CS

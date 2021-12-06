@@ -21,22 +21,22 @@ module Encoder(input  logic clk, A, B,
 
 
 	always_ff @(posedge A, posedge reset) begin
-		if (reset) cntPosA <= 32'd2047; // offset = 12'b0111_1111_1111
+		if (reset) cntPosA <= 32'd1048; 
 		else cntPosA <= B ? cntPosA - 32'b1 : cntPosA + 32'b1;
 	end
 
 	always_ff @(negedge A, posedge reset) begin
-		if (reset) cntNegA <= 32'd2047; // offset = 12'b0111_1111_1111
+		if (reset) cntNegA <= 32'd1048; 
 		else cntNegA <= B ? cntNegA + 32'b1 : cntNegA - 32'b1;
 	end
 
 	always_ff @(posedge B, posedge reset) begin
-		if (reset) cntPosB <= 32'd2047; // offset = 12'b0111_1111_1111
+		if (reset) cntPosB <= 32'd1048; 
 		else cntPosB <= A ? cntPosB + 32'b1 : cntPosB - 32'b1;
 	end
 
 	always_ff @(negedge B, posedge reset) begin
-		if (reset) cntNegB <= 32'd2047; // offset = 12'b0111_1111_1111
+		if (reset) cntNegB <= 32'd1048; 
 		else cntNegB <= A ? cntNegB - 32'b1 : cntNegB + 32'b1;
 	end
 
