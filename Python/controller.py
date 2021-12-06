@@ -5,11 +5,15 @@ from displacement import *
 import time
 #pip install simple-pid
 from simple_pid import PID
+import math
 #https://pypi.org/project/simple-pid/#description
 
 P = 2
 I = 0.05
 D = 0
+
+deltat = 1e-3 #time btwn two mesures of the encoders
+b = 0.2345 #lenght btwn wheels
 
 class PID_obj(object):
 	def __init__(self):
@@ -70,8 +74,22 @@ class Controller(object):
     	self.x_ref = new_x
     	self.y_ref = new_y
 
-        sp_r = 0
-        sp_l = 0
+        #comput d_r and d_l from
+        # d =   (d_r+d_l)/2
+        # phi = (d_r-d_l)/b
+        deltax = self.x_ref-self.x
+        deltay = self.y_ref-self.y
+
+        d = sqrt(deltax**2+deltay**2)
+        alpha = math.asin(deltay/d)
+
+        phi = self.theta-alpha
+
+        d_r = (b*phi+2*d)/2
+        d_l = (2*d-b*phi)/2
+
+        sp_r = d_r/deltat
+        sp_l = d_l/deltat
 
         self.PID_obj.set_setpoint_r(sp_r)
         self.PID_obj.set_setpoint_l(sp_l) 
