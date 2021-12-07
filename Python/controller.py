@@ -29,7 +29,7 @@ class PID_obj(object):
     	self.PID_l.setpoint = sp
 
     def set_setpoint_r(self,sp):
-    	self.PID_l.setpoint = sp
+    	self.PID_r.setpoint = sp
 
     def output_value_l(self):
     	return self.PID_l(self.actual_value_l)
