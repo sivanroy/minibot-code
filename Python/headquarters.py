@@ -2,6 +2,7 @@ import numpy as np
 import RPi.GPIO as GPIO
 from robot import *
 from displacement import *
+from controller import *
 import time
 
 MAXDIST = 600
@@ -42,6 +43,22 @@ def follow(scan_data,MyRobot):
 
 def dodge(scan_data):
 	return 1
+
+i = 0 
+def closed_loop_ref(scan_data,MyRobot):
+    MyController = MyRobot.controller
+    if (i<100):
+        MyController.set_cartesian_ref(1,1)
+        i+=1
+
+def closed_loop_omega(scan_data,MyRobot):
+    MyController = MyRobot.controller
+    PID_obj = MyController.PID_obj
+    if (i<100):
+        PID_obj.set_setpoint_l(1)
+        PID_obj.set_setpoint_r(1)
+        i+=1
+
 
 def headqarters(scan_data,MyRobot):
     Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button

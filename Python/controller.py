@@ -31,16 +31,21 @@ class PID_obj(object):
     def set_setpoint_r(self,sp):
     	self.PID_l.setpoint = sp
 
+    def set_mes(self,omega_mes_l,omega_mes_r):
+        self.omega_mes_l = omega_mes_l
+        self.omega_mes_r = omega_mes_r
+
     def output_value_l(self):
-    	return self.PID_l(self.actual_value_l)
+    	return self.PID_l(self.omega_mes_l)
 
     def output_value_r(self):
-    	return self.PID_r(self.actual_value_r)
+    	return self.PID_r(self.omega_mes_r)
 
 
 class Controller(object):
-    def __init__(self):
+    def __init__(self, MyRobot):
         self.thread_exit = 0
+        self.MyRobot = MyRobot 
     	#actual values
         self.theta = 0
         self.x = 0
@@ -50,16 +55,31 @@ class Controller(object):
         #DEO nano talk
         self.DE02RPI = DEO2Rpi(self)
         #values of setpoint
-        self.omega_ref_l = 0
-        self.omega_ref_r = 0
+        #self.omega_ref_l = 0
+        #self.omega_ref_r = 0
         #setpoint in x,y domain
         self.x_ref = 0
         self.y_ref = 0
 
-    def send_to_motors(self,motors):
+    def update_pos(self,x,y,theta):
+        self.x = x
+        self.y = y
+        self.theta = theta
+
+    def compute_pos(self,omega_mes_l,omega_mes_r):
+        d_l = omega_mes_l*deltat
+        d_r = omega_mes_r*deltat
+        d = (d_r+d_l)/2
+        phi = (d_r-d_l)/b
+        x = self.x + d*math.cos(self.theta+phi/2)
+        y = self.y + d*math.sin(self.theta+phi/2)
+        theta = self.theta+phi
+        self.update_pos(x,y,theta)
+
+    def send_to_motors(self):
     	speedl = self.PID_obj.output_value_l()
     	speedr = self.PID_obj.output_value_r()
-    	motors.set_speeds(speedl, speedr)
+    	MyRobot.set_speeds(speedl, speedr)
 
     def set_cartesian_ref(self,new_x,new_y):
     	self.x_ref = new_x

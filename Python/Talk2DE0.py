@@ -15,6 +15,8 @@ def talk(MyController):
 		omega_mes_l = DE02RPI.dleft()
 		#PID
 		set_mes(omega_mes_l,omega_mes_r)
+		#actual position
+		set_pos(omega_mes_l,omega_mes_r)
 		#wheels
 		MyController.send_to_motors()
 		time.sleep(0.5e-3) #half of frequence of odo ?
