@@ -8,7 +8,6 @@ class Sensors(object):
         self.buttons = Buttons();
         self.lidar = None
 
-
 class Actuators(object):
     def __init__(self):
         self.motors = Motors()
@@ -39,7 +38,7 @@ class Robot(object):
         self.ON = 0
         self.sensors = Sensors()
         self.actuators = Actuators()
-        self.controller = Controller()
+        self.controller = Controller(self)
         self.infos = Infos()
 
     def set_speeds(self, speedl,speedr):
@@ -55,4 +54,5 @@ class Robot(object):
         self.ON = 1
 
     def shutdown(self):
+        self.Controller.thread_exit = 1
         self.ON = 0

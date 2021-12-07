@@ -6,6 +6,7 @@ import time
 #pip install simple-pid
 from simple_pid import PID
 import math
+import spidev
 #https://pypi.org/project/simple-pid/#description
 
 P = 2
@@ -36,20 +37,10 @@ class PID_obj(object):
     def output_value_r(self):
     	return self.PID_r(self.actual_value_r)
 
-class DEO2Rpi(object):
-	def __init__(self):
-		self.smthing = 0
-
-	def dright(self):
-		dright = 0
-		return dright
-
-	def dleft(self):
-		dleft = 0
-		return dleft
 
 class Controller(object):
     def __init__(self):
+        self.thread_exit = 0
     	#actual values
         self.theta = 0
         self.x = 0
@@ -57,7 +48,7 @@ class Controller(object):
         #PID's controller for each wheel
         self.PID_obj = PID_obj()
         #DEO nano talk
-        self.DE02RPI = DEO2Rpi()
+        self.DE02RPI = DEO2Rpi(self)
         #values of setpoint
         self.omega_ref_l = 0
         self.omega_ref_r = 0
