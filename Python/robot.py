@@ -54,5 +54,5 @@ class Robot(object):
         self.ON = 1
 
     def shutdown(self):
-        self.Controller.thread_exit = 1
+        self.controller.thread_exit = 1
         self.ON = 0

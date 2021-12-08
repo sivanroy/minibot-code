@@ -10,6 +10,10 @@ MINDIST = 300
 ERROR = 20
 speed = 1
 
+"""
+Open loop function base on scan_data
+Folow the closer beacon
+"""
 def follow(scan_data,MyRobot):
     dist = scan_data[0]
     theta = scan_data[1]
@@ -45,12 +49,16 @@ def dodge(scan_data):
 	return 1
 
 i = 0 
+"""
+
+"""
 def closed_loop_ref(scan_data,MyRobot):
     MyController = MyRobot.controller
     if (i<100):
         MyController.set_cartesian_ref(1,1)
         i+=1
-
+"""
+"""
 def closed_loop_omega(scan_data,MyRobot):
     MyController = MyRobot.controller
     PID_obj = MyController.PID_obj
