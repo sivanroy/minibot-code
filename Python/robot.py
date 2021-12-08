@@ -51,8 +51,10 @@ class Robot(object):
         return self.ON
 
     def activate(self):
+        print("Activate the robot \n")
         self.ON = 1
 
     def shutdown(self):
+        print("Shutdown the Robot \n")
         self.controller.thread_exit = 1
         self.ON = 0

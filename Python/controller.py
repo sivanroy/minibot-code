@@ -10,8 +10,8 @@ import math
 import spidev
 #https://pypi.org/project/simple-pid/#description
 
-P = 2
-I = 0.05
+P = 10
+I = 0.5
 D = 0
 
 deltat = 1e-3   #time btwn two mesures of the encoders
@@ -35,7 +35,6 @@ class PID_obj(object):
     def set_mes(self,omega_mes_l,omega_mes_r):
         self.omega_mes_l = omega_mes_l
         self.omega_mes_r = omega_mes_r
-    	self.PID_r.setpoint = sp
 
     def output_value_l(self):
         return self.PID_l(self.omega_mes_l)
@@ -56,6 +55,7 @@ class Controller(object):
         self.PID_obj = PID_obj()
         #DEO nano talk
         self.DE02RPI = DE02Rpi(self)
+        self.DE02RPI.start_thread()
         #values of setpoint
         self.x_ref = 0
         self.y_ref = 0

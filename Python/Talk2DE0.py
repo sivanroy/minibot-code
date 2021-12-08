@@ -17,8 +17,11 @@ Controller with his new values
 Take Mycontroller in arg;
 run untill thread_exit =1
 """
-def talk(MyController, Encoder = 0, \
-                verbose = 0, sleep = 1): #debug parameters
+def talk(MyController):
+     #debug parameters
+    verbose = 0
+    Encoder = 1
+
     DE02RPI = MyController.DE02RPI 
     PID_obj = MyController.PID_obj
     while(MyController.thread_exit == 0):
@@ -71,7 +74,9 @@ class DE02Rpi(object):
         self.MySPI_FPGA.max_speed_hz = 500000
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        self.thread = myThread(talk,MyController,0) 
+        self.thread = myThread(talk,self.MyController,0) 
+        
+    def start_thread(self):
         self.thread.start()
 
     def count(self,spi):
@@ -79,16 +84,19 @@ class DE02Rpi(object):
         return spi[4] + (spi[3] << 8) + (spi[2] << 16) + (spi[1] << 24) - treshold
 
     def dright(self,Encoder = 0):
+        verbose = 0
         Adr = 0x03
         D = D_odo
         if (Encoder == 1):
             Adr = 0x01
             D = D_wheel
-        ToSPI_rightOdo = [Adr, 0x00, 0x00, 0x00, 0x00]
-        countRightOdo = self.count(self.MySPI_FPGA.xfer2(ToSPI_rightOdo))
-        return countRightOdo / (2048*4) * 2 * math.pi * D/2
+        ToSPI_right = [Adr, 0x00, 0x00, 0x00, 0x00]
+        countRight = self.count(self.MySPI_FPGA.xfer2(ToSPI_right))
+        if (verbose): print(countRight)
+        return countRight / (2048*4) * 2 * math.pi * D/2
 
     def dleft(self, Encoder = 0):
+        verbose = 0
         Adr = 0x02
         D = D_odo 
         if (Encoder == 1):
@@ -96,5 +104,6 @@ class DE02Rpi(object):
             D = D_wheel
         ToSPI_left = [Adr, 0x00, 0x00, 0x00, 0x00]
         countLeft = -1 * self.count(self.MySPI_FPGA.xfer2(ToSPI_left))
+        if (verbose) : print(countLeft)
         return countLeft  / (2048*4) * 2 * math.pi * D/2
 
