@@ -44,11 +44,15 @@ def buttonOn(MyRobot):
             return -1 
     return 0
 
+MyController = MyRobot.controller
+MyDE02RPI = MyController.DE02RPI
+MyPID = MyController.PID_obj
 while(1):
     WhatToDo = buttonOn(MyRobot)
     if (WhatToDo == -1):
         break
     if (WhatToDo ==  1):
+        print()
 
 
 

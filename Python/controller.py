@@ -30,11 +30,12 @@ class PID_obj(object):
         self.PID_l.setpoint = sp
 
     def set_setpoint_r(self,sp):
-        self.PID_l.setpoint = sp
+        self.PID_r.setpoint = sp
 
     def set_mes(self,omega_mes_l,omega_mes_r):
         self.omega_mes_l = omega_mes_l
         self.omega_mes_r = omega_mes_r
+    	self.PID_r.setpoint = sp
 
     def output_value_l(self):
         return self.PID_l(self.omega_mes_l)
