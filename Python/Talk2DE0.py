@@ -14,20 +14,25 @@ D_wheel = 0.06          #wheels diameter
 Function running in paralel into a thread to actualize PID 
 Controller with his new values
 
+Controller without current loop and whitout current measurement
+
 Take Mycontroller in arg;
-run untill thread_exit =1
+run untill thread_exit = 1
 """
-def talk(MyController):
+def controller_thread_function(MyController):
      #debug parameters
     verbose = 0
     Encoder = 1
+    SLEEP = 0
 
     DE02RPI = MyController.DE02RPI 
     PID_obj = MyController.PID_obj
+
     while(MyController.thread_exit == 0):
         #take odo values
-        omega_mes_r = DE02RPI.dright(Encoder) #cst from controller.py 
-        omega_mes_l = DE02RPI.dleft(Encoder)
+        omega_mes_r = DE02RPI.mes_right(Encoder) #cst from controller.py 
+        omega_mes_l = DE02RPI.mes_left(Encoder)
+
         if (verbose):
             print("omega_mes_r = {} \n omega_mes_l = {} \n"\
                 .format(omega_mes_r,omega_mes_l) )
@@ -35,10 +40,13 @@ def talk(MyController):
         PID_obj.set_mes(omega_mes_l,omega_mes_r)
         #actual position
         MyController.compute_update_pos(omega_mes_l,omega_mes_r)
+        #update setpoint
+        Mycontroller.update_omega_ref()
         #wheels
         MyController.send_to_motors()
-        #if (sleep): 
-        #    time.sleep(1e-3) #half of frequence of odo ?
+        if (SLEEP): 
+            time.sleep(0.5e-3) #half of frequence of odo ?
+
 
 
 """
@@ -74,7 +82,8 @@ class DE02Rpi(object):
         self.MySPI_FPGA.max_speed_hz = 500000
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        self.thread = myThread(talk,self.MyController,0) 
+        self.thread = myThread(controller_thread_function,\
+            self.MyController,0) 
         
     def start_thread(self):
         self.thread.start()
@@ -83,7 +92,10 @@ class DE02Rpi(object):
         treshold = 4192
         return spi[4] + (spi[3] << 8) + (spi[2] << 16) + (spi[1] << 24) - treshold
 
-    def dright(self,Encoder = 0):
+    """
+    Give the mesure of angular speed of the odo/encoder
+    """
+    def mes_left(self,Encoder = 0):
         verbose = 0
         Adr = 0x03
         D = D_odo
@@ -93,9 +105,9 @@ class DE02Rpi(object):
         ToSPI_right = [Adr, 0x00, 0x00, 0x00, 0x00]
         countRight = self.count(self.MySPI_FPGA.xfer2(ToSPI_right))
         if (verbose): print(countRight)
-        return countRight / (2048*4) * 2 * math.pi# * D/2
+        return countRight / (2048*4) * 2 * math.pi
 
-    def dleft(self, Encoder = 0):
+    def mes_right(self, Encoder = 0):
         verbose = 0
         Adr = 0x02
         D = D_odo 
@@ -105,5 +117,6 @@ class DE02Rpi(object):
         ToSPI_left = [Adr, 0x00, 0x00, 0x00, 0x00]
         countLeft = -1 * self.count(self.MySPI_FPGA.xfer2(ToSPI_left))
         if (verbose) : print(countLeft)
-        return countLeft  / (2048*4) * 2 * math.pi# * D/2
+        return countLeft  / (2048*4) * 2 * math.pi
+        # * Deltat ????
 
