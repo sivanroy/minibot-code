@@ -31,6 +31,7 @@ def buttonON(MyRobot):
             return -1 
     return 0
 
+
 """
 closer scan_data
 """
@@ -82,29 +83,20 @@ def follow(scan_data,MyRobot):
 def dodge(scan_data):
 	return 1
 
+def test_theta_ref(scan_data,MyRobot):
+    ref = np.ones((2,1000))
+    ref[0][0:100] = 0
+    ref[0][100:200] = 1
+    ref[0][200:300] = -1
+    ref[0][300:400] = 2
+    ref[0][400:500] = -2
+    ref[0][500:600] = 0.05
+    ref[0][600:700] = -0.05
 
-
-
-"""
-
-"""
-def closed_loop_ref(scan_data,MyRobot):
-    dist_p, theta_p = closer(scan_data,MyRobot)
-    #print(dist_p,theta_p)
-    theta_p -= np.pi/2
-    if(dist_p < 300):
-        MyRobot.controller.set_polar(0,0)
-        print("To close")
-    else:
-        if(i<100): 
-            i += 1
-        else:
-            MyRobot.controller.set_polar(dist_p/1000,theta_p)
-            i = 0
-
-    if(verbose): print(MyRobot.controller.PID_obj.omega_mes_l)
-
-
+    for values in ref:
+        dist = values[0]
+        alpha = values[1]
+        MyRobot.controller.set_polar(dist,alpha)
 
 """
 
@@ -118,6 +110,29 @@ def closed_loop_omega(scan_data,MyRobot):
         PID_obj.set_setpoint_r(i)
         i+=1
 
+
+"""
+theta / dist reference
+"""
+def closed_loop_ref(scan_data,MyRobot):
+    verbose = 0
+    dist_p, theta_p = closer(scan_data,MyRobot)
+    theta_p -= np.pi/2
+
+    if(dist_p < 300):
+        MyRobot.controller.set_polar(0,0)
+        if (verbose) :print("To close")
+    else:
+        if(i<100): 
+            i += 1
+        else:
+            MyRobot.controller.set_polar(dist_p/1000,theta_p)
+            i = 0
+
+    if(verbose): print(MyRobot.controller.PID_obj.omega_mes_l)
+
+
+
 def headquarters(scan_data,MyRobot):
     c = 1
     WhatToDo = buttonON(MyRobot)
@@ -125,7 +140,8 @@ def headquarters(scan_data,MyRobot):
         MyRobot.shutdown()
         return -1
     elif(WhatToDo == 1):
-        if(c == 0):   follow(scan_data,MyRobot)
+        if  (c == 0): follow(scan_data,MyRobot)
         elif(c == 1): closed_loop_ref(scan_data,MyRobot)
-        else: print("Error")
+        elif(c == 2): closed_loop_omega(scan_data,MyRobot)
+        else: print("Not valid")
     return 1
