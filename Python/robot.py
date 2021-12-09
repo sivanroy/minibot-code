@@ -41,6 +41,9 @@ class Robot(object):
         self.controller = Controller(self)
         self.infos = Infos()
 
+    def stop_motor(self):
+        self.set_speeds(0,0)
+
     def set_speeds(self, speedl,speedr):
         self.actuators.motors.set_speeds(speedl,speedr);
 
@@ -57,4 +60,5 @@ class Robot(object):
     def shutdown(self):
         print("Shutdown the Robot \n")
         self.controller.thread_exit = 1
+        self.stop_motor()
         self.ON = 0

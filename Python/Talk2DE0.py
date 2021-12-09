@@ -93,7 +93,7 @@ class DE02Rpi(object):
         ToSPI_right = [Adr, 0x00, 0x00, 0x00, 0x00]
         countRight = self.count(self.MySPI_FPGA.xfer2(ToSPI_right))
         if (verbose): print(countRight)
-        return countRight / (2048*4) * 2 * math.pi * D/2
+        return countRight / (2048*4) * 2 * math.pi# * D/2
 
     def dleft(self, Encoder = 0):
         verbose = 0
@@ -105,5 +105,5 @@ class DE02Rpi(object):
         ToSPI_left = [Adr, 0x00, 0x00, 0x00, 0x00]
         countLeft = -1 * self.count(self.MySPI_FPGA.xfer2(ToSPI_left))
         if (verbose) : print(countLeft)
-        return countLeft  / (2048*4) * 2 * math.pi * D/2
+        return countLeft  / (2048*4) * 2 * math.pi# * D/2
 

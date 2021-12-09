@@ -17,6 +17,9 @@ D = 0
 deltat = 1e-3   #time btwn two mesures of the encoders
 b = 0.2345      #lenght btwn wheels
 
+D_odo = 0.045           #odometer_diameter
+D_wheel = 0.06          #wheels diameter 
+
 class PID_obj(object):
     def __init__(self):
         self.PID_l = PID(P,I,D,setpoint = 0)
@@ -65,9 +68,14 @@ class Controller(object):
         self.y = y
         self.theta = theta
 
-    def compute_update_pos(self,omega_mes_l,omega_mes_r):
-        d_l = omega_mes_l*deltat
-        d_r = omega_mes_r*deltat
+    def compute_update_pos(self,omega_mes_l,omega_mes_r,Encoders=0):
+        D = D_odo
+        if(Encoders):
+            D = D_wheel
+            
+        d_l = omega_mes_l*deltat*D
+        d_r = omega_mes_r*deltat*D
+
         d = (d_r+d_l)/2
         phi = (d_r-d_l)/b
         x = self.x + d*math.cos(self.theta+phi/2)
