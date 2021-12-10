@@ -45,11 +45,6 @@ ref[500:1000]  *= 1
 ref[1000:2000] *= 3
 ref[2000:4000] *= 0
 
-
-m_l = np.linspace(0,2,2000)
-m_l = np.append([m_l,np.linspace(2,0,2000)])
-
-
 i = 0
 deltat = 1e-3
 MyController = MyRobot.controller

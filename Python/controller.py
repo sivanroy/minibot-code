@@ -8,13 +8,15 @@ import time
 #from simple_pid import PID
 import math
 #import spidev
+import matplotlib.pyplot as plt
 #https://pypi.org/project/simple-pid/#description
 
+GU = 10
 P_dw = 1;I_dw = 0;D_dw = 0;
-P_s = 50;I_s = 0;D_s = 0;
+P_s = 5*GU;I_s = 1*GU;D_s = 0*GU;
 
-P_d = 1;I_d = 0;D_d = 0;
-P_a = 1;I_a = 0;D_a = 0;
+P_d = 5;I_d = 0;D_d = 0;
+P_a = 5;I_a = 0;D_a = 0;
 
 
 deltat = 1e-3   #time btwn two mesures of the encoders
@@ -28,7 +30,8 @@ def limiter(val,MIN,MAX):
     return val
 
 class PID(object):
-    def __init__(self,P,I,D,MIN=None,MAX=None):
+    def __init__(self,P,I,D,MIN=None,MAX=None,doPlot=0):
+        self.doPlot = 0
         self.P = P
         self.I = I
         self.D = D
@@ -38,6 +41,9 @@ class PID(object):
         #e_k -> see
         #https://jckantor.github.io/CBE30338/04.01-Implementing_PID_Control_with_Python_Yield_Statement.html
         self.e = np.array([0]) #can be reduced by juste knowing e_k ; e_k-1 and sum(e_k'*deltat)
+        self.P_a = []
+        self.I_a = []
+        self.D_a = []
 
     def limiter(val,MIN,MAX):
         val = max(val,MIN)
@@ -60,10 +66,12 @@ class PID(object):
         P = self.P; I = self.I; D = self.D
         e_k = self.sp - mes
         self.e = np.append(self.e,e_k)
-        output = P*e_k
-        output += np.sum(self.e)*deltat*I
-        output += (self.e[-1]-self.e[-2])/deltat*D
-        output = limiter(output,self.MIN,self.MAX)
+        output_P = P*e_k
+        output_I = np.sum(self.e)*deltat*I
+        output_D = (self.e[-1]-self.e[-2])/deltat*D
+        if (self.doPlot):
+            self.P_a.append(output_P);self.I_a.append(output_I);self.D_a.append(output_D);
+        output = limiter(output_P+output_I+output_D,self.MIN,self.MAX)
         return output
 
     def command(self,mes,verbose=0):
@@ -86,10 +94,8 @@ class Controller(object):
         self.d_mes_l = 0
         self.d_mes_r = 0
         #PID's controller for each wheel
-        self.PID_dist_l = PID(P_dw,I_dw,D_dw,-50,50)
         self.PID_speed_l = PID(P_s,I_s,D_s,-100,100)
-        self.PID_dist_r = PID(P_dw,I_dw,D_dw,-50,50)
-        self.PID_speed_r = PID(P_s,I_s,D_s,-60,60)
+        self.PID_speed_r = PID(P_s,I_s,D_s,-100,100)
         self.PID_dist = PID(P_d,I_d,D_d,-2,2)
         self.PID_angle = PID(P_a,I_a,D_a,-3,3)
         #DEO nano talk
@@ -134,17 +140,13 @@ class Controller(object):
         theta_p = self.PID_angle.output_value(theta_mes)
         d_p = self.PID_dist.output_value(d_mes)
         #second
-        d_r = (theta_p*b+2*d_p)/2
-        d_l = (2*d_p-theta_p*b)/2
+        omega_l_ref = theta_p + d_p
+        omega_r_ref = theta_p - d_p
         #wheels
-        self.PID_dist_l.set_setpoint(d_l)
-        omega_l = self.PID_dist_l.output_value(dist_l,1)
-        self.PID_dist_r.set_setpoint(d_r)
-        omega_r = self.PID_dist_r.output_value(dist_r)
-        self.PID_speed_l.set_setpoint(omega_l)
+        self.PID_speed_l.set_setpoint(omega_l_ref)
         u_l = self.PID_speed_l.output_value(omega_l_meas,1)
-        self.PID_speed_r.set_setpoint(omega_r)
-        u_r = self.PID_speed_r.output_value(omega_r_meas)
+        self.PID_speed_r.set_setpoint(omega_r_ref)
+        u_r = self.PID_speed_r.output_value(omega_r_meas,1)
         #send_to_motor
         return u_l,u_r
         #self.MyRobot.set_speeds(u_l,u_r)
