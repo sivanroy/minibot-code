@@ -36,17 +36,18 @@ def controller_thread_function(MyController):
         if (verbose):
             print("omega_mes_r = {} \n omega_mes_l = {} \n"\
                 .format(omega_mes_r,omega_mes_l) )
+        """
         #PID
         PID_obj.set_mes(omega_mes_l,omega_mes_r)
         #actual position
         MyController.compute_update_pos(omega_mes_l,omega_mes_r)
         #update setpoint
-        Mycontroller.update_omega_ref()
+        MyController.update_omega_ref()
         #wheels
         MyController.send_to_motors()
         if (SLEEP): 
             time.sleep(0.5e-3) #half of frequence of odo ?
-
+"""
 
 
 """
@@ -88,35 +89,38 @@ class DE02Rpi(object):
     def start_thread(self):
         self.thread.start()
 
-    def count(self,spi):
+    def count(self,spi,verbose=0):
         treshold = 4192
-        return spi[4] + (spi[3] << 8) + (spi[2] << 16) + (spi[1] << 24) - treshold
+        value = spi[4] + (spi[3] << 8) + (spi[2] << 16) + (spi[1] << 24) - treshold
+        if (value == - treshold):
+            if (verbose) :
+                print("Maybe is there an error (: Did you Program the DE0?")
+        return value
 
     """
     Give the mesure of angular speed of the odo/encoder
+
+    GIVE THE DELTATHETA !!! ???
     """
-    def mes_left(self,Encoder = 0):
-        verbose = 0
+    def mes_right(self,Encoder = 0,verbose = 0):
         Adr = 0x03
         D = D_odo
         if (Encoder == 1):
             Adr = 0x01
             D = D_wheel
         ToSPI_right = [Adr, 0x00, 0x00, 0x00, 0x00]
-        countRight = self.count(self.MySPI_FPGA.xfer2(ToSPI_right))
+        countRight = self.count(self.MySPI_FPGA.xfer2(ToSPI_right),verbose=verbose)
         if (verbose): print(countRight)
-        return countRight / (2048*4) * 2 * math.pi
+        return countRight * 1000 / (2048*4) * 2 * math.pi # * Deltat
 
-    def mes_right(self, Encoder = 0):
-        verbose = 0
+    def mes_left(self, Encoder = 0,verbose = 0):
         Adr = 0x02
         D = D_odo 
         if (Encoder == 1):
             Adr = 0x00
             D = D_wheel
         ToSPI_left = [Adr, 0x00, 0x00, 0x00, 0x00]
-        countLeft = -1 * self.count(self.MySPI_FPGA.xfer2(ToSPI_left))
+        countLeft = -1 * self.count(self.MySPI_FPGA.xfer2(ToSPI_left),verbose=verbose)
         if (verbose) : print(countLeft)
-        return countLeft  / (2048*4) * 2 * math.pi
-        # * Deltat ????
+        return countLeft * 1000 / (2048*4) * 2 * math.pi# * Deltat #????
 

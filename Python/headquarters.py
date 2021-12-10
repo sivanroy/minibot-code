@@ -11,6 +11,8 @@ MINDIST = 300
 ERROR = 20
 speed = 1
 
+index = 0
+
 def buttonON(MyRobot):
     Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
     if (Mybutton1.wasPushed() == 0):
@@ -84,19 +86,14 @@ def dodge(scan_data):
 	return 1
 
 def test_theta_ref(scan_data,MyRobot):
-    ref = np.ones((2,1000))
-    ref[0][0:100] = 0
-    ref[0][100:200] = 1
-    ref[0][200:300] = -1
-    ref[0][300:400] = 2
-    ref[0][400:500] = -2
-    ref[0][500:600] = 0.05
-    ref[0][600:700] = -0.05
-
-    for values in ref:
-        dist = values[0]
-        alpha = values[1]
-        MyRobot.controller.set_polar(dist,alpha)
+    SLEEP = 1
+    ref = [0,1,2,0.05,0]
+    for value in ref:
+        MyRobot.controller.set_ref_polar(value,0,1)
+        print(value)
+        if (SLEEP): 
+            time.sleep(5)
+            print("sleep")
 
 """
 
@@ -114,7 +111,9 @@ def closed_loop_omega(scan_data,MyRobot):
 """
 theta / dist reference
 """
-def closed_loop_ref(scan_data,MyRobot):
+"""
+def closed_loop_ref(scan_data,MyRobot
+    ):
     verbose = 0
     dist_p, theta_p = closer(scan_data,MyRobot)
     theta_p -= np.pi/2
@@ -123,25 +122,31 @@ def closed_loop_ref(scan_data,MyRobot):
         MyRobot.controller.set_polar(0,0)
         if (verbose) :print("To close")
     else:
-        if(i<100): 
-            i += 1
+        if(index<100): 
+            index += 1
         else:
             MyRobot.controller.set_polar(dist_p/1000,theta_p)
-            i = 0
+            index = 0
 
     if(verbose): print(MyRobot.controller.PID_obj.omega_mes_l)
-
-
-
+"""
+said = 0
 def headquarters(scan_data,MyRobot):
-    c = 1
+    c = -1
     WhatToDo = buttonON(MyRobot)
     if (WhatToDo == -1):
         MyRobot.shutdown()
         return -1
     elif(WhatToDo == 1):
-        if  (c == 0): follow(scan_data,MyRobot)
-        elif(c == 1): closed_loop_ref(scan_data,MyRobot)
-        elif(c == 2): closed_loop_omega(scan_data,MyRobot)
-        else: print("Not valid")
+        if  (c == 0): 
+            follow(scan_data,MyRobot)
+        #elif(c == 1): closed_loop_ref(scan_data,MyRobot)
+        elif(c == 2): 
+            closed_loop_omega(scan_data,MyRobot)
+        elif(c == 3): 
+            test_theta_ref(scan_data,MyRobot)
+        else: 
+            if (said == 0):
+                print("nothing to do in headquarters")
+                said = 0
     return 1
