@@ -4,8 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from controller import *
 
-from simple_pid import PID as s_PID
-
 plot = [[],[],[],[]]
 
 #begin scan
@@ -19,9 +17,7 @@ m_l = np.append(m_l,np.linspace(4,0,200))
 i = 0
 deltat = 1e-3
 MyController = Controller(None)
-Pid = s_PID(50,10,0)
-Pid.output_limits = (-100,100)
-Pid.sample_time=0.001
+
 
 for i in range(400):
     if (i == 400):
@@ -30,7 +26,6 @@ for i in range(400):
         #MyController.PID_dist.set_setpoint(ref[i])
         #MyController.PID_angle.set_setpoint(0)
         MyController.PID_speed_l.set_setpoint(ref[i])
-        Pid.setpoint = ref[i]
         print(ref[i])
 
     #m_l = MyDE02RPI.mes_left(1)
@@ -44,8 +39,7 @@ for i in range(400):
     #MyController.compute_all_chain(1)
     out = MyController.PID_speed_l.command(m_l_k,0)
     plot[2] = np.append(plot[2],out)
-    out_b = Pid(m_l_k)
-    plot[3] = np.append(plot[3],out_b)
+
 
 ax1 = plt.subplot(211)
 plt.title("Output values")

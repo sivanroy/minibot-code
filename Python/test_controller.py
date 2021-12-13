@@ -1,50 +1,59 @@
-import numpy as np
-import RPi.GPIO as GPIO
-from robot import *
+#test_PID_controller.py
 import time
+import numpy as np
+import matplotlib.pyplot as plt
 from controller import *
-from Talk2DE0 import *
 
-import spidev
+plot = [[],[],[],[],[]]
 
+#begin scan
+ref = np.ones(400)
+ref[0:50]    *= 0
+ref[50:100]  *= 1
+ref[100:200] *= 3
+ref[200:400] *= 0
 
-
-MyARM_ResetPin = 19 # Pin 4 of connector = BCM19 = GPIO[1]
-
-MySPI_FPGA = spidev.SpiDev()
-MySPI_FPGA.open(0,0)
-MySPI_FPGA.max_speed_hz = 500000
-
-MyRobot = Robot()
-
-ref = np.ones(400) #1sec
-ref[0:100] = ref[0:100]* 0
-ref[100:200] = ref[100:200]* 5
-ref[200:300] = ref[200:300]* 20
-ref[300:400] = ref[300:400]* 0
-
-MyController = MyRobot.controller
-MyDE02RPI = MyController.DE02RPI
-MyPID = MyController.PID_obj
-
+m_l = np.linspace(0,4,200)
+m_l = np.append(m_l,np.linspace(4,0,200))
+m_r = m_l
 i = 0
-Running = 1
+deltat = 1e-3
+MyController = Controller(None)
 
-while(Running):
-    WhatToDo = buttonOn(MyRobot)
-    if (WhatToDo == -1 or i >= 400):
-        Running = 0
-        MyRobot.shutdown()
+
+for i in range(400):
+    if (i == 400):
         break
-    elif (WhatToDo ==  1):
-        MyPID.set_setpoint_r(ref[i])
-        MyPID.set_setpoint_l(ref[i])
-        if (i%100 == 0): print(ref[i])
-        time.sleep(0.02)
-        i+=1
-    else:
-        print("Error")
+    if (i%50 == 0):
+        #MyController.PID_dist.set_setpoint(ref[i])
+        #MyController.PID_angle.set_setpoint(0)
+        MyController.PID_dist.set_setpoint(ref[i])
+        MyController.PID_angle.set_setpoint(0)
+        print(ref[i])
 
-print("---------------------\n\
-    Ended without error\n\
-    ---------------------\n")
+    #m_l = MyDE02RPI.mes_left(1)
+    #m_r = MyDE02RPI.mes_right(1)
+    m_l_k = m_l[i]
+    m_r_k = m_r[i]
+    MyController.set_measures(m_l_k,m_r_k)
+    plot[0].append(m_l_k)
+    plot[1].append(m_r_k)
+    plot[2].append(ref[i])
+    ur,ul = MyController.compute_all_chain(1,verbose=0)
+    plot[3].append(ul)
+    plot[4].append(ur)
+
+
+ax1 = plt.subplot(211)
+plt.title("Output values")
+ax1.plot(plot[3],label="u_l",ls=':')
+ax1.plot(plot[4],label="u_r",ls="-.")
+ax1.legend()
+ax2 = plt.subplot(212)
+plt.title("Meas;ref;error")
+ax2.plot(plot[0],label='measure l')
+ax2.plot(plot[1],label='measure r')
+ax2.plot(plot[2],label='reference')
+ax2.plot(MyController.PID_dist.e,label='e')
+ax2.legend()
+plt.show()

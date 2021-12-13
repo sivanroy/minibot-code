@@ -1,22 +1,22 @@
 import numpy as np
-#import RPi.GPIO as GPIO
-#from robot import *
-#from displacement import *
-#from Talk2DE0 import *
+import RPi.GPIO as GPIO
+from robot import *
+from displacement import *
+from Talk2DE0 import *
 import time
 #pip install simple-pid
 #from simple_pid import PID
 import math
-#import spidev
+import spidev
 import matplotlib.pyplot as plt
 #https://pypi.org/project/simple-pid/#description
 
-GU = 10
-P_dw = 1;I_dw = 0;D_dw = 0;
+GU = 1/1000
+P_dw = 1  ;I_dw = 0  ;D_dw = 0;
 P_s = 5*GU;I_s = 1*GU;D_s = 0*GU;
 
-P_d = 5;I_d = 0;D_d = 0;
-P_a = 5;I_a = 0;D_a = 0;
+P_d = 1  ;I_d = 0  ;D_d = 0;
+P_a = 1  ;I_a = 0  ;D_a = 0;
 
 
 deltat = 1e-3   #time btwn two mesures of the encoders
@@ -99,7 +99,7 @@ class Controller(object):
         self.PID_dist = PID(P_d,I_d,D_d,-2,2)
         self.PID_angle = PID(P_a,I_a,D_a,-3,3)
         #DEO nano talk
-        #self.DE02RPI = DE02Rpi(self)
+        self.DE02RPI = DE02Rpi(self)
         #self.DE02RPI.start_thread()
 
     def update_pos(self,x,y,theta):
@@ -123,10 +123,10 @@ class Controller(object):
     def set_measures(self,mes_l,mes_r):
         self.mes_r = mes_r
         self.mes_l = mes_l
-        self.d_mes_l += mes_l
-        self.d_mes_r += mes_r
+        self.d_mes_l = mes_l#+= mes_l
+        self.d_mes_r = mes_r#+= mes_r
 
-    def compute_all_chain(self,Encoder=0):
+    def compute_all_chain(self,Encoder=0,verbose=0):
         D = D_odo
         if (Encoder): D = D_wheel
         #first
@@ -137,16 +137,16 @@ class Controller(object):
 
         theta_mes = (self.d_mes_r-self.d_mes_l)/b
         d_mes = (self.d_mes_l+self.d_mes_r)/2
-        theta_p = self.PID_angle.output_value(theta_mes)
-        d_p = self.PID_dist.output_value(d_mes)
+        theta_p = self.PID_angle.command(theta_mes)
+        d_p = self.PID_dist.command(d_mes)
         #second
         omega_l_ref = theta_p + d_p
         omega_r_ref = theta_p - d_p
         #wheels
         self.PID_speed_l.set_setpoint(omega_l_ref)
-        u_l = self.PID_speed_l.output_value(omega_l_meas,1)
+        u_l = self.PID_speed_l.command(omega_l_meas,verbose)
         self.PID_speed_r.set_setpoint(omega_r_ref)
-        u_r = self.PID_speed_r.output_value(omega_r_meas,1)
+        u_r = self.PID_speed_r.command(omega_r_meas,verbose)
         #send_to_motor
-        return u_l,u_r
         #self.MyRobot.set_speeds(u_l,u_r)
+        return u_l,u_r
