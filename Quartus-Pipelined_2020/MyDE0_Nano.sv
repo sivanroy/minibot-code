@@ -111,10 +111,11 @@ input logic 		     [1:0]		GPIO_1_IN
 
 	always_comb begin
 		case(DataAddr)
-			8'b00: count = countLeftEnc;
-			8'b01: count = countRightEnc;
-			8'b10: count = countLeftOdo;
-			8'b11: count = countRightOdo;
+			8'b000: count = countLeftEnc;
+			8'b001: count = countRightEnc;
+			8'b010: count = countLeftOdo;
+			8'b011: count = countRightOdo;
+			8'b100: count = countSonar;
 		default: count = 32'b0;
 		endcase
 	end
@@ -161,9 +162,16 @@ input logic 		     [1:0]		GPIO_1_IN
 
 	Encoder leftOdo(clk, leftOdoA, leftOdoB, countLeftOdo);
 	Encoder rightOdo(clk, rightOdoA, rightOdoB, countRightOdo);
+	
 
 	// Sonar
-
+	logic [31:0] countSonar;
+	
+	logic trigger, echo;
+	assign trigger = GPIO_0_PI[17];
+	assign echo    = GPIO_0_PI[16];
+	
+	Sonar sonar(clk, echo, trigger, countSonar);
 
 endmodule
 

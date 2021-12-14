@@ -36,6 +36,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "GPIO_0_PI[16]",
+					"strict" : false
+				},
+				{
 					"name" : "GPIO_0_PI[20]",
 					"strict" : false
 				},

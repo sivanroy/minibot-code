@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MyDE0_Nano
-Mon Dec 06 15:43:29 2021
+Tue Dec 14 14:21:37 2021
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -22,13 +22,14 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
  14. Multiplexer Restructuring Statistics (Restructuring Performed)
  15. Source assignments for sld_signaltap:auto_signaltap_0
  16. Parameter Settings for Inferred Entity Instance: sld_signaltap:auto_signaltap_0
- 17. Port Connectivity Checks: "spi_slave:spi_slave_instance"
- 18. Signal Tap Logic Analyzer Settings
- 19. Post-Synthesis Netlist Statistics for Top Partition
- 20. Elapsed Time Per Partition
- 21. Connections to In-System Debugging Instance "auto_signaltap_0"
- 22. Analysis & Synthesis Messages
- 23. Analysis & Synthesis Suppressed Messages
+ 17. Port Connectivity Checks: "Sonar:sonar"
+ 18. Port Connectivity Checks: "spi_slave:spi_slave_instance"
+ 19. Signal Tap Logic Analyzer Settings
+ 20. Post-Synthesis Netlist Statistics for Top Partition
+ 21. Elapsed Time Per Partition
+ 22. Connections to In-System Debugging Instance "auto_signaltap_0"
+ 23. Analysis & Synthesis Messages
+ 24. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -54,15 +55,15 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Dec 06 15:43:29 2021       ;
+; Analysis & Synthesis Status        ; Successful - Tue Dec 14 14:21:37 2021       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; MyDE0_Nano                                  ;
 ; Top-level Entity Name              ; MyDE0_Nano                                  ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 2,512                                       ;
-;     Total combinational functions  ; 1,775                                       ;
-;     Dedicated logic registers      ; 1,885                                       ;
-; Total registers                    ; 1885                                        ;
+; Total logic elements               ; 2,636                                       ;
+;     Total combinational functions  ; 1,867                                       ;
+;     Dedicated logic registers      ; 1,981                                       ;
+; Total registers                    ; 1981                                        ;
 ; Total pins                         ; 154                                         ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 458,752                                     ;
@@ -182,6 +183,7 @@ refer to the applicable agreement for further details.
 ; MyDE0_Nano.sv                                                      ; yes             ; User SystemVerilog HDL File                  ; C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv                                                      ;             ;
 ; MySPI.sv                                                           ; yes             ; User SystemVerilog HDL File                  ; C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MySPI.sv                                                           ;             ;
 ; Encoder.sv                                                         ; yes             ; User SystemVerilog HDL File                  ; C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/Encoder.sv                                                         ;             ;
+; Sonar.sv                                                           ; yes             ; User SystemVerilog HDL File                  ; C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/Sonar.sv                                                           ;             ;
 ; sld_signaltap.vhd                                                  ; yes             ; Megafunction                                 ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_signaltap.vhd                                                                          ;             ;
 ; sld_signaltap_impl.vhd                                             ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_signaltap_impl.vhd                                                                     ;             ;
 ; sld_ela_control.vhd                                                ; yes             ; Encrypted Megafunction                       ; c:/intelfpga_lite/18.1/quartus/libraries/megafunctions/sld_ela_control.vhd                                                                        ;             ;
@@ -246,20 +248,20 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 2,512          ;
+; Estimated Total logic elements              ; 2,636          ;
 ;                                             ;                ;
-; Total combinational functions               ; 1775           ;
+; Total combinational functions               ; 1867           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 429            ;
-;     -- 3 input functions                    ; 1075           ;
-;     -- <=2 input functions                  ; 271            ;
+;     -- 4 input functions                    ; 424            ;
+;     -- 3 input functions                    ; 1108           ;
+;     -- <=2 input functions                  ; 335            ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 771            ;
-;     -- arithmetic mode                      ; 1004           ;
+;     -- normal mode                          ; 801            ;
+;     -- arithmetic mode                      ; 1066           ;
 ;                                             ;                ;
-; Total registers                             ; 1885           ;
-;     -- Dedicated logic registers            ; 1885           ;
+; Total registers                             ; 1981           ;
+;     -- Dedicated logic registers            ; 1981           ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 154            ;
@@ -268,8 +270,8 @@ refer to the applicable agreement for further details.
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 892            ;
-; Total fan-out                               ; 13001          ;
+; Maximum fan-out                             ; 988            ;
+; Total fan-out                               ; 13588          ;
 ; Average fan-out                             ; 3.15           ;
 +---------------------------------------------+----------------+
 
@@ -279,11 +281,12 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 ; Compilation Hierarchy Node                                                                                                              ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                                                                                                                                                                                    ; Entity Name                       ; Library Name ;
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
-; |MyDE0_Nano                                                                                                                             ; 1775 (2)            ; 1885 (0)                  ; 458752      ; 0            ; 0       ; 0         ; 154  ; 0            ; |MyDE0_Nano                                                                                                                                                                                                                                                                                                                                            ; MyDE0_Nano                        ; work         ;
+; |MyDE0_Nano                                                                                                                             ; 1867 (0)            ; 1981 (0)                  ; 458752      ; 0            ; 0       ; 0         ; 154  ; 0            ; |MyDE0_Nano                                                                                                                                                                                                                                                                                                                                            ; MyDE0_Nano                        ; work         ;
 ;    |Encoder:leftEnc|                                                                                                                    ; 274 (274)           ; 193 (193)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|Encoder:leftEnc                                                                                                                                                                                                                                                                                                                            ; Encoder                           ; work         ;
 ;    |Encoder:leftOdo|                                                                                                                    ; 224 (224)           ; 160 (160)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|Encoder:leftOdo                                                                                                                                                                                                                                                                                                                            ; Encoder                           ; work         ;
 ;    |Encoder:rightEnc|                                                                                                                   ; 224 (224)           ; 160 (160)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|Encoder:rightEnc                                                                                                                                                                                                                                                                                                                           ; Encoder                           ; work         ;
 ;    |Encoder:rightOdo|                                                                                                                   ; 224 (224)           ; 160 (160)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|Encoder:rightOdo                                                                                                                                                                                                                                                                                                                           ; Encoder                           ; work         ;
+;    |Sonar:sonar|                                                                                                                        ; 93 (93)             ; 96 (96)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|Sonar:sonar                                                                                                                                                                                                                                                                                                                                ; Sonar                             ; work         ;
 ;    |sld_hub:auto_hub|                                                                                                                   ; 127 (1)             ; 91 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|sld_hub:auto_hub                                                                                                                                                                                                                                                                                                                           ; sld_hub                           ; altera_sld   ;
 ;       |alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric| ; 126 (0)             ; 91 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric                                                                                                                                                                                           ; alt_sld_fab_with_jtag_input       ; altera_sld   ;
 ;          |alt_sld_fab:instrumentation_fabric|                                                                                           ; 126 (0)             ; 91 (0)                    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric                                                                                                                                                        ; alt_sld_fab                       ; alt_sld_fab  ;
@@ -382,7 +385,7 @@ refer to the applicable agreement for further details.
 ;                |lpm_shiftreg:ram_data_shift_out|                                                                                        ; 56 (56)             ; 56 (56)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_shiftreg:ram_data_shift_out                                                                                                               ; lpm_shiftreg                      ; work         ;
 ;                |lpm_shiftreg:status_data_shift_out|                                                                                     ; 27 (27)             ; 27 (27)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_offload_buffer_mgr:\stp_non_zero_depth_offload_gen:stp_offload_buff_mgr_inst|lpm_shiftreg:status_data_shift_out                                                                                                            ; lpm_shiftreg                      ; work         ;
 ;             |sld_rom_sr:crc_rom_sr|                                                                                                     ; 30 (30)             ; 8 (8)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_rom_sr:crc_rom_sr                                                                                                                                                                                                          ; sld_rom_sr                        ; work         ;
-;    |spi_slave:spi_slave_instance|                                                                                                       ; 136 (136)           ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|spi_slave:spi_slave_instance                                                                                                                                                                                                                                                                                                               ; spi_slave                         ; work         ;
+;    |spi_slave:spi_slave_instance|                                                                                                       ; 137 (137)           ; 61 (61)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MyDE0_Nano|spi_slave:spi_slave_instance                                                                                                                                                                                                                                                                                                               ; spi_slave                         ; work         ;
 +-----------------------------------------------------------------------------------------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -537,12 +540,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 1885  ;
-; Number of registers using Synchronous Clear  ; 54    ;
-; Number of registers using Synchronous Load   ; 71    ;
+; Total registers                              ; 1981  ;
+; Number of registers using Synchronous Clear  ; 117   ;
+; Number of registers using Synchronous Load   ; 102   ;
 ; Number of registers using Asynchronous Clear ; 919   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 695   ;
+; Number of registers using Clock Enable       ; 759   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -552,18 +555,6 @@ Encoding Type:  One-Hot
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 ; Inverted Register                                                                                                                                                                                                                                                                                                               ; Fan out ;
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
-; Encoder:rightEnc|cntNegB[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
-; Encoder:rightEnc|cntNegA[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
-; Encoder:rightEnc|cntNegB[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:rightEnc|cntNegA[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:rightEnc|cntNegB[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:rightEnc|cntNegA[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:rightEnc|cntPosB[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
-; Encoder:rightEnc|cntPosA[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
-; Encoder:rightEnc|cntPosB[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:rightEnc|cntPosA[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:rightEnc|cntPosB[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:rightEnc|cntPosA[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
 ; Encoder:leftOdo|cntNegB[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
 ; Encoder:leftOdo|cntNegA[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
 ; Encoder:leftOdo|cntNegB[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
@@ -576,18 +567,18 @@ Encoding Type:  One-Hot
 ; Encoder:leftOdo|cntPosA[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
 ; Encoder:leftOdo|cntPosB[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
 ; Encoder:leftOdo|cntPosA[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntNegB[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:leftEnc|cntNegA[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:leftEnc|cntNegB[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntNegA[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntNegB[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntNegA[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntPosB[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:leftEnc|cntPosA[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
-; Encoder:leftEnc|cntPosB[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntPosA[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntPosB[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
-; Encoder:leftEnc|cntPosA[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:rightEnc|cntNegB[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
+; Encoder:rightEnc|cntNegA[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
+; Encoder:rightEnc|cntNegB[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:rightEnc|cntNegA[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:rightEnc|cntNegB[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:rightEnc|cntNegA[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:rightEnc|cntPosB[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
+; Encoder:rightEnc|cntPosA[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
+; Encoder:rightEnc|cntPosB[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:rightEnc|cntPosA[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:rightEnc|cntPosB[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:rightEnc|cntPosA[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
 ; Encoder:rightOdo|cntNegB[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
 ; Encoder:rightOdo|cntNegA[10]                                                                                                                                                                                                                                                                                                    ; 2       ;
 ; Encoder:rightOdo|cntNegB[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
@@ -600,6 +591,18 @@ Encoding Type:  One-Hot
 ; Encoder:rightOdo|cntPosA[4]                                                                                                                                                                                                                                                                                                     ; 2       ;
 ; Encoder:rightOdo|cntPosB[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
 ; Encoder:rightOdo|cntPosA[3]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:leftEnc|cntNegB[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:leftEnc|cntNegA[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:leftEnc|cntNegB[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:leftEnc|cntNegA[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:leftEnc|cntNegB[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:leftEnc|cntNegA[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:leftEnc|cntPosB[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:leftEnc|cntPosA[10]                                                                                                                                                                                                                                                                                                     ; 2       ;
+; Encoder:leftEnc|cntPosB[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:leftEnc|cntPosA[4]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:leftEnc|cntPosB[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
+; Encoder:leftEnc|cntPosA[3]                                                                                                                                                                                                                                                                                                      ; 2       ;
 ; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[2] ; 2       ;
 ; sld_hub:auto_hub|alt_sld_fab_with_jtag_input:\instrumentation_fabric_with_node_gen:fabric_gen_new_way:with_jtag_input_gen:instrumentation_fabric|alt_sld_fab:instrumentation_fabric|alt_sld_fab_alt_sld_fab:alt_sld_fab|alt_sld_fab_alt_sld_fab_sldfabric:sldfabric|sld_jtag_hub:\jtag_hub_gen:real_sld_jtag_hub|jtag_ir_reg[1] ; 3       ;
 ; sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|modified_post_count[1]                                                                                                                                                   ; 1       ;
@@ -625,8 +628,10 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
-; 3:1                ; 14 bits   ; 28 LEs        ; 14 LEs               ; 14 LEs                 ; Yes        ; |MyDE0_Nano|spi_slave:spi_slave_instance|SPI_reg[0]  ;
-; 259:1              ; 31 bits   ; 5332 LEs      ; 124 LEs              ; 5208 LEs               ; Yes        ; |MyDE0_Nano|spi_slave:spi_slave_instance|SPI_reg[14] ;
+; 3:1                ; 14 bits   ; 28 LEs        ; 14 LEs               ; 14 LEs                 ; Yes        ; |MyDE0_Nano|spi_slave:spi_slave_instance|SPI_cnt[4]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |MyDE0_Nano|Sonar:sonar|dt[22]                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |MyDE0_Nano|Sonar:sonar|inc[18]                      ;
+; 259:1              ; 31 bits   ; 5332 LEs      ; 124 LEs              ; 5208 LEs               ; Yes        ; |MyDE0_Nano|spi_slave:spi_slave_instance|SPI_reg[13] ;
 ; 9:1                ; 2 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |MyDE0_Nano|spi_slave:spi_slave_instance|state       ;
 ; 9:1                ; 2 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |MyDE0_Nano|spi_slave:spi_slave_instance|state       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------+
@@ -707,6 +712,15 @@ Encoding Type:  One-Hot
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++-------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Sonar:sonar"                                                                           ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; Port    ; Type   ; Severity ; Details                                                                             ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; trigger ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "spi_slave:spi_slave_instance"                                                                                                     ;
 +----------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------+
@@ -731,25 +745,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 210                         ;
-; cycloneiii_ff         ; 734                         ;
+; cycloneiii_ff         ; 830                         ;
 ;     CLR               ; 512                         ;
-;     ENA               ; 175                         ;
-;     ENA SCLR          ; 6                           ;
-;     plain             ; 41                          ;
+;     ENA               ; 176                         ;
+;     ENA SCLR          ; 38                          ;
+;     ENA SCLR SLD      ; 31                          ;
+;     plain             ; 73                          ;
 ; cycloneiii_io_obuf    ; 98                          ;
-; cycloneiii_lcell_comb ; 1085                        ;
-;     arith             ; 904                         ;
-;         2 data inputs ; 52                          ;
+; cycloneiii_lcell_comb ; 1177                        ;
+;     arith             ; 966                         ;
+;         2 data inputs ; 114                         ;
 ;         3 data inputs ; 852                         ;
-;     normal            ; 181                         ;
+;     normal            ; 211                         ;
 ;         0 data inputs ; 1                           ;
-;         1 data inputs ; 4                           ;
-;         2 data inputs ; 40                          ;
-;         3 data inputs ; 13                          ;
-;         4 data inputs ; 123                         ;
+;         1 data inputs ; 5                           ;
+;         2 data inputs ; 41                          ;
+;         3 data inputs ; 46                          ;
+;         4 data inputs ; 118                         ;
 ;                       ;                             ;
 ; Max LUT depth         ; 5.10                        ;
-; Average LUT depth     ; 3.56                        ;
+; Average LUT depth     ; 3.51                        ;
 +-----------------------+-----------------------------+
 
 
@@ -758,161 +773,161 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:02     ;
 +----------------+--------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Connections to In-System Debugging Instance "auto_signaltap_0"                                                                                                                                ;
-+--------------------------------------------+---------------+-----------+--------------------------------+-------------------+-------------------------------------------------------+---------+
-; Name                                       ; Type          ; Status    ; Partition Name                 ; Netlist Type Used ; Actual Connection                                     ; Details ;
-+--------------------------------------------+---------------+-----------+--------------------------------+-------------------+-------------------------------------------------------+---------+
-; spi_slave:spi_slave_instance|SPI_CLK       ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[22]                                         ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_CLK       ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[22]                                         ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_CS        ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[20]                                         ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_CS        ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[20]                                         ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_MISO      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_MISO                 ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_MISO      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_MISO                 ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_MOSI      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[23]                                         ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_MOSI      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[23]                                         ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[0]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[0]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[1]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[1]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[2]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[2]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[3]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[3]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[4]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[4]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[5]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_cnt[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[5]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[0]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[0]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[10]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[10]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[10]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[10]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[11]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[11]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[11]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[11]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[12]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[12]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[12]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[12]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[13]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[13]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[13]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[13]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[14]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[14]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[14]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[14]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[15]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[15]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[15]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[15]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[16]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[16]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[16]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[16]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[17]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[17]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[17]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[17]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[18]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[18]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[18]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[18]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[19]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[19]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[19]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[19]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[1]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[1]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[20]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[20]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[20]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[20]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[21]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[21]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[21]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[21]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[22]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[22]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[22]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[22]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[23]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[23]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[23]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[23]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[24]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[24]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[24]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[24]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[25]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[25]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[25]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[25]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[26]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[26]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[26]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[26]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[27]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[27]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[27]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[27]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[28]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[28]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[28]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[28]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[29]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[29]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[29]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[29]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[2]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[2]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[30]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[30]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[30]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[30]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[31]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[31]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[31]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[31]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[32]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[32]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[32]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[32]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[33]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[33]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[33]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[33]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[34]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[34]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[34]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[34]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[35]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[35]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[35]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[35]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[36]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[36]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[36]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[36]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[37]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[37]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[37]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[37]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[38]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[38]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[38]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[38]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[39]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[39]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[39]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[39]              ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[3]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[3]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[4]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[4]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[5]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[5]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[6]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[6]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[6]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[6]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[7]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[7]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[7]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[7]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[8]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[8]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[8]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[8]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[9]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[9]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg[9]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[9]               ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg_load  ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_load~1           ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg_load  ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_load~1           ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg_shift ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_shift~0_wirecell ; N/A     ;
-; spi_slave:spi_slave_instance|SPI_reg_shift ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_shift~0_wirecell ; N/A     ;
-; spi_slave:spi_slave_instance|state.S0      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S0~_wirecell       ; N/A     ;
-; spi_slave:spi_slave_instance|state.S0      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S0~_wirecell       ; N/A     ;
-; spi_slave:spi_slave_instance|state.S1      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S1                 ; N/A     ;
-; spi_slave:spi_slave_instance|state.S1      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S1                 ; N/A     ;
-; spi_slave:spi_slave_instance|state.S2      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S2                 ; N/A     ;
-; spi_slave:spi_slave_instance|state.S2      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S2                 ; N/A     ;
-; spi_slave:spi_slave_instance|state.S3      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S3                 ; N/A     ;
-; spi_slave:spi_slave_instance|state.S3      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S3                 ; N/A     ;
-; CLOCK_50                                   ; post-fitting  ; connected ; Top                            ; post-synthesis    ; CLOCK_50                                              ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC                   ; N/A     ;
-+--------------------------------------------+---------------+-----------+--------------------------------+-------------------+-------------------------------------------------------+---------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Connections to In-System Debugging Instance "auto_signaltap_0"                                                                                                                          ;
++--------------------------------------------+---------------+-----------+--------------------------------+-------------------+-------------------------------------------------+---------+
+; Name                                       ; Type          ; Status    ; Partition Name                 ; Netlist Type Used ; Actual Connection                               ; Details ;
++--------------------------------------------+---------------+-----------+--------------------------------+-------------------+-------------------------------------------------+---------+
+; spi_slave:spi_slave_instance|SPI_CLK       ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[22]                                   ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_CLK       ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[22]                                   ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_CS        ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[20]                                   ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_CS        ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[20]                                   ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_MISO      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_MISO           ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_MISO      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_MISO           ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_MOSI      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[23]                                   ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_MOSI      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; GPIO_0_PI[23]                                   ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[0]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[0]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[1]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[1]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[2]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[2]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[3]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[3]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[4]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[4]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[5]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_cnt[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_cnt[5]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[0]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[0]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[0]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[10]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[10]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[10]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[10]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[11]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[11]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[11]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[11]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[12]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[12]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[12]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[12]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[13]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[13]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[13]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[13]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[14]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[14]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[14]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[14]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[15]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[15]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[15]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[15]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[16]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[16]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[16]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[16]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[17]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[17]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[17]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[17]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[18]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[18]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[18]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[18]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[19]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[19]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[19]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[19]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[1]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[1]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[1]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[20]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[20]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[20]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[20]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[21]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[21]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[21]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[21]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[22]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[22]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[22]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[22]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[23]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[23]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[23]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[23]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[24]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[24]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[24]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[24]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[25]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[25]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[25]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[25]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[26]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[26]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[26]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[26]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[27]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[27]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[27]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[27]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[28]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[28]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[28]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[28]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[29]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[29]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[29]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[29]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[2]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[2]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[2]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[30]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[30]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[30]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[30]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[31]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[31]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[31]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[31]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[32]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[32]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[32]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[32]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[33]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[33]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[33]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[33]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[34]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[34]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[34]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[34]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[35]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[35]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[35]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[35]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[36]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[36]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[36]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[36]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[37]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[37]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[37]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[37]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[38]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[38]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[38]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[38]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[39]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[39]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[39]   ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[39]        ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[3]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[3]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[3]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[4]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[4]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[4]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[5]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[5]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[5]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[6]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[6]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[6]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[6]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[7]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[7]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[7]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[7]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[8]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[8]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[8]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[8]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[9]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[9]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg[9]    ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg[9]         ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg_load  ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_load~1     ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg_load  ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_load~1     ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg_shift ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_shift~0    ; N/A     ;
+; spi_slave:spi_slave_instance|SPI_reg_shift ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|SPI_reg_shift~0    ; N/A     ;
+; spi_slave:spi_slave_instance|state.S0      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S0~_wirecell ; N/A     ;
+; spi_slave:spi_slave_instance|state.S0      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S0~_wirecell ; N/A     ;
+; spi_slave:spi_slave_instance|state.S1      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S1           ; N/A     ;
+; spi_slave:spi_slave_instance|state.S1      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S1           ; N/A     ;
+; spi_slave:spi_slave_instance|state.S2      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S2           ; N/A     ;
+; spi_slave:spi_slave_instance|state.S2      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S2           ; N/A     ;
+; spi_slave:spi_slave_instance|state.S3      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S3           ; N/A     ;
+; spi_slave:spi_slave_instance|state.S3      ; pre-synthesis ; connected ; Top                            ; post-synthesis    ; spi_slave:spi_slave_instance|state.S3           ; N/A     ;
+; CLOCK_50                                   ; post-fitting  ; connected ; Top                            ; post-synthesis    ; CLOCK_50                                        ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|gnd                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~GND             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
+; auto_signaltap_0|vcc                       ; post-fitting  ; connected ; sld_signaltap:auto_signaltap_0 ; post-synthesis    ; sld_signaltap:auto_signaltap_0|~VCC             ; N/A     ;
++--------------------------------------------+---------------+-----------+--------------------------------+-------------------+-------------------------------------------------+---------+
 
 
 +-------------------------------+
@@ -921,7 +936,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Mon Dec 06 15:42:42 2021
+    Info: Processing started: Tue Dec 14 14:20:43 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MyDE0_Nano -c MyDE0_Nano
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
@@ -952,6 +967,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file amt103e
     Info (12023): Found entity 1: AMT103Enc File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/AMT103Enc.sv Line: 2
 Info (12021): Found 1 design units, including 1 entities, in source file encoder.sv
     Info (12023): Found entity 1: Encoder File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/Encoder.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file sonar.sv
+    Info (12023): Found entity 1: Sonar File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/Sonar.sv Line: 2
 Warning (10236): Verilog HDL Implicit Net warning at MyARM_Pipelined.sv(114): created implicit net for "PCSrcGatedE" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyARM_Pipelined.sv Line: 114
 Info (12127): Elaborating entity "MyDE0_Nano" for the top level hierarchy
 Warning (10034): Output port "LED" at MyDE0_Nano.sv(12) has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 12
@@ -973,7 +990,8 @@ Warning (10034): Output port "ADC_CS_N" at MyDE0_Nano.sv(45) has no driver File:
 Warning (10034): Output port "ADC_SADDR" at MyDE0_Nano.sv(46) has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 46
 Warning (10034): Output port "ADC_SCLK" at MyDE0_Nano.sv(47) has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 47
 Info (12128): Elaborating entity "spi_slave" for hierarchy "spi_slave:spi_slave_instance" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 88
-Info (12128): Elaborating entity "Encoder" for hierarchy "Encoder:leftEnc" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 159
+Info (12128): Elaborating entity "Encoder" for hierarchy "Encoder:leftEnc" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 160
+Info (12128): Elaborating entity "Sonar" for hierarchy "Sonar:sonar" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 174
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ob24.tdf
     Info (12023): Found entity 1: altsyncram_ob24 File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/db/altsyncram_ob24.tdf Line: 27
 Info (12021): Found 1 design units, including 1 entities, in source file db/mux_vsc.tdf
@@ -996,7 +1014,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr
     Info (12023): Found entity 1: cmpr_ngc File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/db/cmpr_ngc.tdf Line: 22
 Info (12033): Analysis and Synthesis generated Signal Tap or debug node instance "auto_signaltap_0"
 Info (11170): Starting IP generation for the debug fabric: alt_sld_fab.
-Info (11172): 2021.12.06.15:43:12 Progress: Loading sldbe248a27/alt_sld_fab_wrapper_hw.tcl
+Info (11172): 2021.12.14.14:21:18 Progress: Loading sldbe248a27/alt_sld_fab_wrapper_hw.tcl
 Info (11172): Alt_sld_fab.alt_sld_fab: SLD fabric agents which did not specify prefer_host were connected to JTAG
 Info (11172): Alt_sld_fab: Generating alt_sld_fab "alt_sld_fab" for QUARTUS_SYNTH
 Info (11172): Alt_sld_fab: "alt_sld_fab" instantiated alt_sld_fab "alt_sld_fab"
@@ -1029,6 +1047,8 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_0_PI[9]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[10]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[11]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
+    Warning (13040): bidirectional pin "GPIO_0_PI[16]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
+    Warning (13040): bidirectional pin "GPIO_0_PI[17]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[20]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[22]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[23]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
@@ -1070,8 +1090,6 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "GPIO_0_PI[13]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[14]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[15]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
-    Warning (13040): bidirectional pin "GPIO_0_PI[16]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
-    Warning (13040): bidirectional pin "GPIO_0_PI[17]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[18]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[19]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
     Warning (13040): bidirectional pin "GPIO_0_PI[24]" has no driver File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 55
@@ -1184,17 +1202,17 @@ Warning (21074): Design contains 16 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "GPIO_0_PI_IN[1]" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 56
     Warning (15610): No output dependent on input pin "GPIO_1_IN[0]" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 61
     Warning (15610): No output dependent on input pin "GPIO_1_IN[1]" File: C:/Users/vlibert/Desktop/LELME2002/minibot/minibot-code/Quartus-Pipelined_2020/MyDE0_Nano.sv Line: 61
-Info (21057): Implemented 2750 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 2874 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 20 input pins
     Info (21059): Implemented 40 output pins
     Info (21060): Implemented 98 bidirectional pins
-    Info (21061): Implemented 2535 logic cells
+    Info (21061): Implemented 2659 logic cells
     Info (21064): Implemented 56 RAM segments
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 179 warnings
-    Info: Peak virtual memory: 4856 megabytes
-    Info: Processing ended: Mon Dec 06 15:43:29 2021
-    Info: Elapsed time: 00:00:47
-    Info: Total CPU time (on all processors): 00:01:21
+    Info: Peak virtual memory: 4852 megabytes
+    Info: Processing ended: Tue Dec 14 14:21:37 2021
+    Info: Elapsed time: 00:00:54
+    Info: Total CPU time (on all processors): 00:01:19
 
 
 +------------------------------------------+
