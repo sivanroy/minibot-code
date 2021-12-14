@@ -1,18 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from motors import *
-from controller import *
+from controllers import *
 from buttons import *
 
 
 MINDIST = 300
 MAXDIST = 600
 ERROR = 10
-SPEED_AVRG = 2
-SPEED_MAX = 6
-
-SPEED_FACTOR = (SPEED_MAX - SPEED_AVRG)/MAXDIST
-
 
 def closer(scan_data):
     dist = scan_data[0]
@@ -44,68 +39,23 @@ class Minibot(object):
         self.ON = 0
         self.motors = Motors()
         self.motors.start_all()
-        self.controller = Controller()
+        self.s_controller = Speed_controller()
+        self.p_controller = Position_controller()
         self.buttons = Buttons()
         self.infos = Infos()
 
-
     def follow(self, scan_data):
         dist, theta = closer(scan_data)
+        print(dist, theta)
 
-        if dist < MINDIST or dist > MAXDIST:
-            self.motors.stop_all()
+        self.p_controller.set_pos(dist, theta)
+        cmd_theta = self.p_controller.command_theta()
+        cmd_dist = self.p_controller.command_dist()
 
-        ########## front left ##########
-        elif 90 < theta < 180 - ERROR:
-            d_theta = -(theta - 180)
-            dbs = dist - MINDIST  # dbs = distance before stop
-            w_ref_r = SPEED_FACTOR * dbs + SPEED_AVRG
-            w_ref_l = w_ref_r * ((90 + ERROR - 2*d_theta)/(90 - ERROR))
+        self.s_controller.set_w_ref(cmd_theta, cmd_dist)
+        cmd_r, cmd_l = self.s_controller.command_speed()
 
-            self.controller.set_w_ref(w_ref_r, w_ref_l)
-            cmd_r, cmd_l = self.controller.command()
-            self.motors.set_speeds(cmd_l, cmd_r)
-
-        ########## front right ##########
-        elif 180 + ERROR < theta < 270:
-            d_theta = theta - 180
-            dbs = dist - MINDIST
-            w_ref_l = SPEED_FACTOR * dbs + SPEED_AVRG
-            w_ref_r = w_ref_l * ((90 + ERROR - 2*d_theta)/(90 - ERROR))
-
-            self.controller.set_w_ref(w_ref_r, w_ref_l)
-            cmd_r, cmd_l = self.controller.command()
-            self.motors.set_speeds(cmd_l, cmd_r)
-
-        ########## back left ##########
-        elif 0 < theta < 90:
-            w_ref_r = SPEED_MAX
-            w_ref_l = -w_ref_r
-
-            self.controller.set_w_ref(w_ref_r, w_ref_l)
-            cmd_r, cmd_l = self.controller.command()
-            self.motors.set_speeds(cmd_l, cmd_r)
-
-        ########## back right ##########
-        elif 270 < theta < 360:
-            w_ref_l = SPEED_MAX
-            w_ref_r = -w_ref_l
-
-            self.controller.set_w_ref(w_ref_r, w_ref_l)
-            cmd_r, cmd_l = self.controller.command()
-            self.motors.set_speeds(cmd_l, cmd_r)
-
-        ########## in front of ##########
-        else:
-            dbs = dist - MINDIST
-            w_ref_r = SPEED_FACTOR * dbs + SPEED_AVRG
-            w_ref_l = w_ref_r
-
-            self.controller.set_w_ref(w_ref_r, w_ref_l)
-            cmd_r, cmd_l = self.controller.command()
-            self.motors.set_speeds(cmd_l, cmd_r)
-
-        return
+        self.motors.set_speeds(cmd_l, cmd_r)
 
     def print_infos(self):
         self.infos.print_infos()
@@ -123,7 +73,7 @@ class Minibot(object):
         self.ON = 0
 
     def plot_w(self):
-        w_list = self.controller.return_w_list()
+        w_list = self.s_controller.return_w_list()
         w_ref_r = w_list[0]
         w_ref_l = w_list[1]
         w_mes_r = w_list[2]
@@ -144,4 +94,3 @@ class Minibot(object):
         ax_l.set(ylabel='w [rad/s]', xlabel='cnt')
 
         plt.show()
-

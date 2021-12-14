@@ -29,7 +29,7 @@ for i, lidar_scan in enumerate(lidar.iter_scans()):
         theta.append(scan[1])
         dist.append(scan[2])
     WhatToDo = headquarters([dist, theta])
-    sleep(0.0005)
+    #sleep(0.0005)
     if WhatToDo == -1:
         break
 
