@@ -50,7 +50,7 @@ def moving_average(din, n):
   return dout
 
 
-plot = [[],[],[]]
+plot = [[],[],[],[],[]]
 
 #begin scan
 ref = np.ones(4000)
@@ -65,9 +65,10 @@ deltat = 1e-3
 MyController = MyRobot.controller
 MyDE02RPI = MyRobot.controller.DE02RPI
 
-mean = 0
+"""
 INIT = 30
 STEP = 60
+STEP2 = 100
 ref = 0
 start = time.time()
 while(1):
@@ -81,11 +82,15 @@ while(1):
         elif (i == 40000):
             MyRobot.set_speeds(0,0)
             break
-        elif (i%2000 == 0 and i!=0):
+        elif (i == 2000):
             #MyController.PID_dist.set_setpoint(ref[i])
             #MyController.PID_angle.set_setpoint(0)
             ref = STEP
             MyRobot.set_speeds(STEP,STEP)
+        elif (i==4000):
+            ref = STEP2
+            MyRobot.set_speeds(STEP2,STEP2)
+
 
         m_l = MyDE02RPI.mes_left(1)
         m_r = MyDE02RPI.mes_right(1)
@@ -97,6 +102,7 @@ while(1):
         plot[1] = np.append(plot[1],ref)
         #plot[2] = np.append(plot[2],output)
         i +=1
+
 stop = time.time()
 print("start : {} ; stop {} ; diff {}".format(start,stop,stop-start))
 
@@ -107,8 +113,90 @@ plt.plot(moving_average(plot[0],100),label="measure mov. av.",c='green',ls='-')
 ax12 = ax1.twinx()
 plot[1][0] = 0
 plt.plot(plot[1],label="ref",c='orange')
+#plt.plot(plot[2],label="u",c='red')
 plt.legend()
 plt.show()
+
+np.savetxt("data",plot[0:3])
+"""
+
+MySpeedPID = PID(402.6,402.6/1.028,0,-100,100)
+MyDistPID = PID(1,0,0,-3,3)
+MyAnglePID = PID(1,0,0,-3.14/2,3.14/2)
+
+INIT = 1
+STEP = 1
+STEP2 = 3
+ref = 0
+start = time.time()
+
+
+while(1):
+    WhatToDo = buttonON(MyRobot)
+    if (WhatToDo == -1):
+        break
+    elif (WhatToDo ==1):
+        if (i == 0):
+            MyRobot.set_speeds(0,0)
+            ref = 0
+        elif (i == 40000):
+            MyRobot.set_speeds(0,0)
+            break
+        elif (i == 2000):
+            #MyController.PID_angle.set_setpoint(0)
+            ref = STEP
+            MyAnglePID.set_setpoint(STEP)
+            MyDistPID.set_setpoint(0)
+        elif (i==4000):
+            ref = STEP2
+            MyAnglePID.set_setpoint(STEP2)
+            MyDistPID.set_setpoint(0)
+
+        m_l = MyDE02RPI.mes_left(1)
+        m_r = MyDE02RPI.mes_right(1)
+        #m_l_k = m_l[i]
+
+        #D = D_odo
+        D = D_wheel
+        d_l = m_l * D
+        d_r = m_r * D
+        d_mes = (d_r+d_l)/2
+        phi_mes = (d_r-d_l)/b
+
+        #Test en BO
+        #d_mes = 0
+        #out_phi = 0
+        out_d = MyDistPID.command(0)
+        out_phi = MyAnglePID.command(0)
+
+        omega_l_ref = out_d + out_phi 
+        omega_r_ref = out_d - out_phi
+
+        MyRobot.set_speeds(omega_l_ref,omega_r_ref)
+
+        plot[0] = np.append(plot[0],m_l)
+        plot[1] = np.append(plot[1],m_r)
+        plot[2] = np.append(plot[2],ref)
+        plot[3] = np.append(plot[3],phi_mes)
+        i +=1
+
+stop = time.time()
+print("start : {} ; stop {} ; diff {}".format(start,stop,stop-start))
+
+MyRobot.shutdown()
+ax1 = plt.subplot(211)
+#plt.plot(plot[0],label="measure",c="b")
+plt.plot(moving_average(plot[0],100),label="measure mov. av. left",c='green',ls='-')
+plt.plot(moving_average(plot[1],100),label="measure mov. av. right",c='green',ls='-')
+#ax12 = ax1.twinx()
+ax2 = plt.subplot(212)
+plot[2][0] = 0
+plt.plot(plot[2],label="ref",c='orange')
+plt.plot(moving_average(plot[3],50),label="d measure",c='red')
+plt.legend()
+plt.show()
+
+np.savetxt("data",plot[0:4]) # m_l,m_r,ref,d_mes
 
 """
 mean = 0

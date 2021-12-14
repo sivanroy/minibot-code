@@ -11,9 +11,9 @@ import spidev
 import matplotlib.pyplot as plt
 #https://pypi.org/project/simple-pid/#description
 
-GU = 1/1000
-P_dw = 1  ;I_dw = 0  ;D_dw = 0;
-P_s = 5*GU;I_s = 1*GU;D_s = 0*GU;
+#P_dw = 1  ;I_dw = 0  ;D_dw = 0;
+
+P_s = 402.6;I_s = P_s/1.028;D_s = 0; #wheel speed controller param
 
 P_d = 1  ;I_d = 0  ;D_d = 0;
 P_a = 1  ;I_a = 0  ;D_a = 0;
@@ -46,8 +46,10 @@ class PID(object):
         self.D_a = []
 
     def limiter(val,MIN,MAX):
-        val = max(val,MIN)
-        val = min(val,MAX)
+        if (MIN != None):
+            val = max(val,MIN)
+        if (MAX != None):
+            val = min(val,MAX)
         return val
 
     def set_pid(self,P,I,D):
@@ -76,7 +78,8 @@ class PID(object):
 
     def command(self,mes,verbose=0):
         output = self.compute(mes)
-        if (verbose):print("ref {};mes {}::out {}".format(self.sp,mes,output))
+        if (verbose):
+            print("ref {};mes {}::out {}".format(self.sp,mes,output))
         return output
 
 
@@ -96,6 +99,7 @@ class Controller(object):
         #PID's controller for each wheel
         self.PID_speed_l = PID(P_s,I_s,D_s,-100,100)
         self.PID_speed_r = PID(P_s,I_s,D_s,-100,100)
+
         self.PID_dist = PID(P_d,I_d,D_d,-2,2)
         self.PID_angle = PID(P_a,I_a,D_a,-3,3)
         #DEO nano talk
@@ -119,6 +123,7 @@ class Controller(object):
         y = self.y + d * math.sin(self.theta + phi/2)
         theta = self.theta + phi
         self.update_pos(x,y,theta)
+        return d,phi
 
     def set_measures(self,mes_l,mes_r):
         self.mes_r = mes_r
