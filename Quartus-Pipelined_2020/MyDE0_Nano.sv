@@ -74,7 +74,7 @@ input logic 		     [1:0]		GPIO_1_IN
 //=======================================================
 
 	logic 		   spi_clk, spi_cs, spi_mosi, spi_miso;
-	logic [31:0]   DataToRPi;
+	logic [31:0]   DataToRPi, DataToFPGA;
 	logic [7:0]    DataAddr;
 
 	spi_slave spi_slave_instance(
@@ -83,6 +83,7 @@ input logic 		     [1:0]		GPIO_1_IN
 		.SPI_MOSI   (spi_mosi),		// input
 		.SPI_MISO   (spi_miso),		// output
 		.DataAddr   (DataAddr),		// output : address of what we want to read form DE0 to RPi
+		.DataToFPGA (DataToFPGA),
 		.DataToRPi  (DataToRPi),	// input  : data to send to the RPi
 		.Clk        (clk)				// input
 	);
@@ -123,7 +124,7 @@ input logic 		     [1:0]		GPIO_1_IN
 	assign DataToRPi = count;
 
 //=======================================================
-//  Encoder
+//  Encoder / Sonar
 //=======================================================
 
 	/*
@@ -143,7 +144,7 @@ input logic 		     [1:0]		GPIO_1_IN
 	*/
 
    // Encoder - Odometer
-   logic [31:0] countLeftEnc, countRightEnc, countLeftOdo, countRightOdo;
+   logic [31:0] countLeftEnc, countRightEnc, countLeftOdo, countRightOdo, countSonar;
 
 	logic leftEncA, leftEncB, rightEncA, rightEncB;
 	assign rightEncA = GPIO_0_PI[1];
@@ -157,6 +158,10 @@ input logic 		     [1:0]		GPIO_1_IN
 	assign leftOdoA  = GPIO_0_PI[10];
 	assign leftOdoB  = GPIO_0_PI[11];
 
+	logic trigger, echo;
+	assign trigger = GPIO_0_PI[17];
+	assign echo    = GPIO_0_PI[16];
+
 	Encoder leftEnc(clk, leftEncA, leftEncB, countLeftEnc);
 	Encoder rightEnc(clk, rightEncA, rightEncB, countRightEnc);
 
@@ -165,13 +170,7 @@ input logic 		     [1:0]		GPIO_1_IN
 	
 
 	// Sonar
-	logic [31:0] countSonar;
-	
-	logic trigger, echo;
-	assign trigger = GPIO_0_PI[17];
-	assign echo    = GPIO_0_PI[16];
-	
-	Sonar sonar(clk, echo, trigger, countSonar);
+	SonarFSM sonarFSM(clk, echo, DataToFPGA, trigger, countSonar);
 
 endmodule
 

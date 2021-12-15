@@ -1,12 +1,12 @@
 <session jtag_chain="USB-Blaster [USB-0]" jtag_device="@1: 10CL025(Y|Z)/EP3C25/EP4CE22 (0x020F30DD)" sof_file="../MyDE0_Nano.sof">
   <display_tree gui_logging_enabled="0">
-    <display_branch instance="auto_signaltap_0" log="USE_GLOBAL_TEMP" signal_set="USE_GLOBAL_TEMP" trigger="USE_GLOBAL_TEMP"/>
+    <display_branch instance="auto_signaltap_0" signal_set="USE_GLOBAL_TEMP" trigger="USE_GLOBAL_TEMP"/>
   </display_tree>
   <instance enabled="true" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="auto_signaltap_0" source_file="sld_signaltap.vhd">
     <node_ip_info instance_id="0" mfg_id="110" node_id="0" version="6"/>
-    <signal_set global_temp="1" is_expanded="true" name="signal_set: 2016/11/30 20:00:11  #0">
+    <signal_set global_temp="1" is_expanded="true" name="signal_set: 2021/12/14 17:26:27  #0">
       <clock name="CLOCK_50" polarity="posedge" tap_mode="probeonly"/>
-      <config ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="8192" trigger_in_enable="no" trigger_out_enable="no"/>
+      <config pipeline_level="0" ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="8192" trigger_in_enable="no" trigger_out_enable="no"/>
       <top_entity/>
       <signal_vec>
         <trigger_input_vec>
@@ -66,6 +66,7 @@
           <wire name="spi_slave:spi_slave_instance|state.S1" tap_mode="classic"/>
           <wire name="spi_slave:spi_slave_instance|state.S2" tap_mode="classic"/>
           <wire name="spi_slave:spi_slave_instance|state.S3" tap_mode="classic"/>
+          <wire name="trigger" tap_mode="classic"/>
         </trigger_input_vec>
         <data_input_vec>
           <wire name="spi_slave:spi_slave_instance|SPI_CLK" tap_mode="classic"/>
@@ -124,6 +125,7 @@
           <wire name="spi_slave:spi_slave_instance|state.S1" tap_mode="classic"/>
           <wire name="spi_slave:spi_slave_instance|state.S2" tap_mode="classic"/>
           <wire name="spi_slave:spi_slave_instance|state.S3" tap_mode="classic"/>
+          <wire name="trigger" tap_mode="classic"/>
         </data_input_vec>
         <storage_qualifier_input_vec>
           <wire name="spi_slave:spi_slave_instance|SPI_CLK" tap_mode="classic"/>
@@ -182,6 +184,7 @@
           <wire name="spi_slave:spi_slave_instance|state.S1" tap_mode="classic"/>
           <wire name="spi_slave:spi_slave_instance|state.S2" tap_mode="classic"/>
           <wire name="spi_slave:spi_slave_instance|state.S3" tap_mode="classic"/>
+          <wire name="trigger" tap_mode="classic"/>
         </storage_qualifier_input_vec>
       </signal_vec>
       <presentation>
@@ -246,6 +249,7 @@
             <node data_index="5" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_cnt[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="5" tap_mode="classic" trigger_index="5" type="unknown"/>
             <node data_index="4" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_cnt[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="4" tap_mode="classic" trigger_index="4" type="unknown"/>
           </node>
+          <node duplicate_name_allowed="false" is_data_input="true" is_node_valid="false" is_storage_input="true" is_trigger_input="true" name="trigger" tap_mode="classic" type="combinatorial"/>
         </unified_setup_data_view>
         <data_view>
           <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_CLK" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
@@ -308,6 +312,7 @@
             <net data_index="5" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_cnt[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="5" tap_mode="classic" trigger_index="5" type="unknown"/>
             <net data_index="4" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_cnt[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="4" tap_mode="classic" trigger_index="4" type="unknown"/>
           </bus>
+          <net data_index="56" duplicate_name_allowed="false" is_data_input="true" is_node_valid="false" is_storage_input="true" is_trigger_input="true" name="trigger" storage_index="56" tap_mode="classic" trigger_index="56" type="unknown"/>
         </data_view>
         <setup_view>
           <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_CLK" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
@@ -370,21 +375,23 @@
             <net data_index="5" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_cnt[1]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="5" tap_mode="classic" trigger_index="5" type="unknown"/>
             <net data_index="4" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_selected="false" is_storage_input="true" is_trigger_input="true" level-0="dont_care" name="spi_slave:spi_slave_instance|SPI_cnt[0]" pwr_level-0="dont_care" pwr_storage-0="dont_care" pwr_storage-1="dont_care" pwr_storage-2="dont_care" storage-0="dont_care" storage-1="dont_care" storage-2="dont_care" storage_index="4" tap_mode="classic" trigger_index="4" type="unknown"/>
           </bus>
+          <net data_index="56" duplicate_name_allowed="false" is_data_input="true" is_node_valid="false" is_storage_input="true" is_trigger_input="true" name="trigger" storage_index="56" tap_mode="classic" trigger_index="56" type="unknown"/>
         </setup_view>
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger CRC="4C802D3B" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/11/30 20:00:11  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="512" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="207CF1AF" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2021/12/14 17:26:27  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="512" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">'spi_slave:spi_slave_instance|SPI_CS' == falling edge
             <power_up enabled="yes">
-            </power_up><op_node/>
+            </power_up>
+            <op_node/>
           </level>
         </events>
         <storage_qualifier_events>
-          <transitional>11111111111111111111111111111111111111111111111111111111
-            <pwr_up_transitional>11111111111111111111111111111111111111111111111111111111</pwr_up_transitional>
+          <transitional>111111111111111111111111111111111111111111111111111111111
+            <pwr_up_transitional>111111111111111111111111111111111111111111111111111111111</pwr_up_transitional>
           </transitional>
           <storage_qualifier_level type="basic">
             <power_up>
@@ -405,7 +412,7 @@
       </trigger>
     </signal_set>
     <position_info>
-      <single attribute="active tab" value="0"/>
+      <single attribute="active tab" value="1"/>
       <single attribute="data horizontal scroll position" value="0"/>
       <single attribute="data vertical scroll position" value="0"/>
       <single attribute="setup horizontal scroll position" value="0"/>

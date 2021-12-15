@@ -8,36 +8,14 @@ module spi_slave(
 	input  logic			SPI_CS,
 	input  logic 			SPI_MOSI,
 	output logic 			SPI_MISO,
-	output logic[31:0] 	DataAddr,       // address of what we want to read form DE0 to RPi
+	output logic[7:0] 	DataAddr,       // address of what we want to read form DE0 to RPi
+	output logic[31:0] 	DataToFPGA,		 // data to FPGA
 	input  logic[31:0] 	DataToRPi,      // data to send to the RPi
 	input  logic			Clk
 );
 
 	logic [39:0] SPI_reg;
 
-/*
-//---Input Registers -(from PI to ARM) ------------------------
-
-	logic [31:0] mosiRAM[15:0];
-	logic 		 mosiRAM_we;
-    
-	assign Data_Read = mosiRAM[Data_Addr[5:2]]; 
-	
-	always_ff @(posedge Clk) begin
-		if (mosiRAM_we) mosiRAM[SPI_reg[35:32]] <= SPI_reg[31:0];
-	end
-	
-//--- Output Registers - (from ARM to PI) ----------------------
-
-	logic [31:0] misoRAM[15:0];
-	logic [31:0] misoRAM_read;
-
-	assign misoRAM_read = misoRAM[SPI_reg[3:0]];
-	
-	always_ff @(posedge Clk) begin
-		if (Data_WE) misoRAM[Data_Addr[5:2]] <= Data_Write;
-	end
-*/
 
 //---SPI Sysnchronization -------------------------------------
 
@@ -56,7 +34,7 @@ module spi_slave(
 	
 	logic [5:0] SPI_cnt;
 	logic 		SPI_cnt_reset, SPI_cnt_inc;
-	logic			SPI_reg_reset, SPI_reg_shift, SPI_reg_load;	
+	logic			SPI_reg_reset, SPI_reg_shift, SPI_reg_load, SPI_for_fpga;	
 	logic 		MISO_we, MISO_reset;
 	
 // State Register & Bit counter & SPI Register & MISO
@@ -78,7 +56,8 @@ module spi_slave(
 		if (MISO_reset) 			SPI_MISO <= 0;
 		else if (SPI_reg_load)	SPI_MISO <= DataToRPi[31];
 		else if (MISO_we)			SPI_MISO <= SPI_reg[39];
- 			
+ 		
+		if (SPI_for_fpga) DataToFPGA <= SPI_reg[31:0];
 	end
 	
 // Next State Logic
@@ -88,7 +67,7 @@ module spi_slave(
 		// Default value
 		nextstate = state;
 		SPI_cnt_reset = 0; SPI_cnt_inc = 0;
-		SPI_reg_reset = 0; SPI_reg_shift = 0; SPI_reg_load = 0;
+		SPI_reg_reset = 0; SPI_reg_shift = 0; SPI_reg_load = 0; SPI_for_fpga = 0;
 		MISO_we = 0; MISO_reset = 0;
 		
 		case (state)
@@ -108,7 +87,10 @@ module spi_slave(
 			S2 : if (~SPI_CLK_sync) begin			// negedge of SPI_CLK
 						MISO_we = 1;
 						if (SPI_cnt == 8) SPI_reg_load = 1;
-						if (SPI_cnt == 40) nextstate = S3;
+						if (SPI_cnt == 40) begin
+							SPI_for_fpga = 1;
+							nextstate = S3;
+						end
 						else nextstate = S1;
 					end
 					
