@@ -13,6 +13,9 @@ ERROR = 20
 speed = 1
 index = 0
 
+PID_dist =  PID(1000,0,0)
+PID_angle = PID(200,0,0)
+
 def buttonON(MyRobot):
     Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
     if (Mybutton1.wasPushed() == 0):
@@ -154,11 +157,14 @@ def closed_loop(scan_data,MyRobot):
     phi_mes = (d_r-d_l)/b
 
     #P
-    dout = K_p_d*(d_ref-d_mes)
-    alphaout = K_p_a*(theta_ref-phi_mes)
+    PID_dist.set_setpoint(d_ref)
+    dout =  PID_dist.command(d_mes)
+    #dout = K_p_d*(d_ref-d_mes)
+    PID_angle.set_setpoint(phi_ref)
+    alphaout = PID_angle.command(phi_mes)
+    #alphaout = K_p_a*(theta_ref-phi_mes)
     sp_l = dout+alphaout
     sp_r = dout-alphaout
-
     #setpoint
     MyController.PID_speed_l.set_setpoint(sp_l)
     MyController.PID_speed_r.set_setpoint(sp_r)
