@@ -8,7 +8,7 @@ import time
 
 D_odo = 0.045           #odometer_diameter
 D_wheel = 0.06          #wheels diameter 
-
+deltat = 2e-3
 
 """ 
 Function running in paralel into a thread to actualize PID 
@@ -24,9 +24,10 @@ def controller_thread_function(MyController):
     verbose = 0
     Encoder = 1
     SLEEP = 0
+    previous_l = 0
+    previous_r = 0
 
     DE02RPI = MyController.DE02RPI 
-    PID_obj = MyController.PID_obj
 
     while(MyController.thread_exit == 0):
         #take odo values
@@ -36,18 +37,21 @@ def controller_thread_function(MyController):
         if (verbose):
             print("omega_mes_r = {} \n omega_mes_l = {} \n"\
                 .format(omega_mes_r,omega_mes_l) )
-        """
+
+        
         #PID
-        PID_obj.set_mes(omega_mes_l,omega_mes_r)
+        MyController.set_measures(omega_mes_l,omega_mes_r)
         #actual position
         MyController.compute_update_pos(omega_mes_l,omega_mes_r)
         #update setpoint
-        MyController.update_omega_ref()
+        ur,ul = MyController.compute_all_chain()
         #wheels
-        MyController.send_to_motors()
+        MyController.send_to_motors((ul+previous_l)/2,(ur+previous_r)/2)
+        #MyController.send_to_motors()
+        previous_l = ul
+        previous_r = ur
         if (SLEEP): 
             time.sleep(0.5e-3) #half of frequence of odo ?
-"""
 
 
 """
@@ -111,7 +115,7 @@ class DE02Rpi(object):
         ToSPI_right = [Adr, 0x00, 0x00, 0x00, 0x00]
         countRight = self.count(self.MySPI_FPGA.xfer2(ToSPI_right),verbose=verbose)
         if (verbose): print(countRight)
-        return countRight * 1000 / (2048*4) * 2 * math.pi # * Deltat
+        return countRight * 1/deltat / (2048*4) * 2 * math.pi # * Deltat
 
     def mes_left(self, Encoder = 0,verbose = 0):
         Adr = 0x02
@@ -122,5 +126,5 @@ class DE02Rpi(object):
         ToSPI_left = [Adr, 0x00, 0x00, 0x00, 0x00]
         countLeft = -1 * self.count(self.MySPI_FPGA.xfer2(ToSPI_left),verbose=verbose)
         if (verbose) : print(countLeft)
-        return countLeft * 1000 / (2048*4) * 2 * math.pi# * Deltat #????
+        return countLeft /deltat / (2048*4) * 2 * math.pi# * Deltat #????
 

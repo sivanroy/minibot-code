@@ -15,11 +15,13 @@ import matplotlib.pyplot as plt
 
 P_s = 402.6;I_s = P_s/1.028;D_s = 0; #wheel speed controller param
 
-P_d = 1  ;I_d = 0  ;D_d = 0;
-P_a = 1  ;I_a = 0  ;D_a = 0;
+#P_d = 114.13  ;I_d = 64.9  ;D_d = 4.47;
+#P_a = 13.88  ;I_a = 24.9  ;D_a = 3.11;
+P_d =  10  ;I_d = 0  ;D_d = 0;
+P_a = -10  ;I_a = 0  ;D_a = 0;
 
 
-deltat = 1e-3   #time btwn two mesures of the encoders
+deltat = 2e-3   #time btwn two mesures of the encoders
 b = 0.2345      #lenght btwn wheels
 D_odo = 0.045           #odometer_diameter
 D_wheel = 0.06          #wheels diameter 
@@ -85,7 +87,7 @@ class PID(object):
 
 class Controller(object):
     def __init__(self, MyRobot):
-        self.thread_exit = 1
+        self.thread_exit = 0
         self.MyRobot = MyRobot 
         #actual values
         self.theta = 0
@@ -104,7 +106,14 @@ class Controller(object):
         self.PID_angle = PID(P_a,I_a,D_a,-3,3)
         #DEO nano talk
         self.DE02RPI = DE02Rpi(self)
-        #self.DE02RPI.start_thread()
+        self.DE02RPI.start_thread()
+
+    def set_ref_polar(self,d_ref,phi_ref):
+        self.PID_dist.set_setpoint(d_ref)
+        self.PID_angle.set_setpoint(phi_ref)
+
+    def send_to_motors(self,u_l,u_r):
+        self.MyRobot.set_speeds(u_l,u_r)
 
     def update_pos(self,x,y,theta):
         self.x = x

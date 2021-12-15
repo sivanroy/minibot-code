@@ -27,7 +27,6 @@ for i, lidar_scan in enumerate(lidar.iter_scans()):
     if (info_c == -1):
         break
 
-
 lidar.stop()
 lidar.stop_motor()
 lidar.disconnect()

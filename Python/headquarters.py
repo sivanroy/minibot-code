@@ -6,11 +6,11 @@ from controller import *
 #from button import buttonOn
 import time
 
+c = 4
 MAXDIST = 600
 MINDIST = 300
 ERROR = 20
 speed = 1
-
 index = 0
 
 def buttonON(MyRobot):
@@ -37,10 +37,9 @@ def buttonON(MyRobot):
 """
 closer scan_data
 """
-def closer(scan_data,MyRobot):
+def closer(scan_data):
     dist = scan_data[0]
     theta = scan_data[1]
-    motors = MyRobot.actuators.motors
     max_index = np.where(dist == np.amin(np.array(dist)))[0][0]
     dist_p = dist[max_index]
     theta_p = theta[max_index]
@@ -130,9 +129,20 @@ def closed_loop_ref(scan_data,MyRobot
 
     if(verbose): print(MyRobot.controller.PID_obj.omega_mes_l)
 """
-said = 0
+
+
+def closed_loop(scan_data,MyRobot):
+    d_p,theta_p = closer(scan_data)
+    if(d_p > MINDIST and d_p < MAXDIST):
+        MyRobot.controller.set_ref_polar((d_p-MINDIST)*1000,theta_p*3.14/180)
+        print(d_p,theta_p)
+    else:
+        MyRobot.controller.set_ref_polar(0,0)
+
+
+
 def headquarters(scan_data,MyRobot):
-    c = -1
+    c = 4
     WhatToDo = buttonON(MyRobot)
     if (WhatToDo == -1):
         MyRobot.shutdown()
@@ -145,8 +155,8 @@ def headquarters(scan_data,MyRobot):
             closed_loop_omega(scan_data,MyRobot)
         elif(c == 3): 
             test_theta_ref(scan_data,MyRobot)
-        else: 
-            if (said == 0):
-                print("nothing to do in headquarters")
-                said = 0
+        elif(c == 4):
+            closed_loop(scan_data,MyRobot)  
+        else:
+            print("nothing to do in headquarters")
     return 1

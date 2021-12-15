@@ -42,22 +42,3 @@ class Buttons(object):
         print("Button #1 :\n")
         self.button1.print_infos()
 
-def buttonOn(MyRobot):
-    Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
-    if (Mybutton1.wasPushed() == 0):
-        if(MyRobot.isON()):
-            return 1
-    else:
-        if(Mybutton1.count()<2):
-            Mybutton1.clear()
-            MyRobot.activate()
-            print(Mybutton1.print_infos())
-            print("Robot is ON\n")
-            
-        else:
-            Mybutton1.clear()
-            MyRobot.shutdown()
-            MyRobot.actuators.motors.set_speeds(0,0)
-            print("stop the motors \n")
-            return -1 
-    return 0
