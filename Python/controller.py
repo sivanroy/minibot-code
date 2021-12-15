@@ -87,7 +87,7 @@ class PID(object):
 
 class Controller(object):
     def __init__(self, MyRobot):
-        self.thread_exit = 0
+        self.thread_exit = 1
         self.MyRobot = MyRobot 
         #actual values
         self.theta = 0
@@ -106,7 +106,7 @@ class Controller(object):
         self.PID_angle = PID(P_a,I_a,D_a,-3,3)
         #DEO nano talk
         self.DE02RPI = DE02Rpi(self)
-        self.DE02RPI.start_thread()
+        #self.DE02RPI.start_thread()
 
     def set_ref_polar(self,d_ref,phi_ref):
         self.PID_dist.set_setpoint(d_ref)
