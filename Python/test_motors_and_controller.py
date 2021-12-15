@@ -65,6 +65,7 @@ deltat = 1e-3
 MyController = MyRobot.controller
 MyDE02RPI = MyRobot.controller.DE02RPI
 
+
 """
 INIT = 30
 STEP = 60
@@ -122,8 +123,8 @@ np.savetxt("data",plot[0:3])
 
 
 
-"""
 
+"""
 MySpeedPID = PID(402.6,402.6/1.028,0,-100,100)
 K = 5
 MyDistPID = PID(1,0,0,-3,3)
@@ -202,8 +203,8 @@ plt.legend()
 plt.show()
 
 np.savetxt("data",plot[0:4]) # m_l,m_r,ref,d_mes
-
 """
+
 
 """
 lidar = RPLidar('/dev/ttyUSB0')
@@ -212,11 +213,15 @@ info = lidar.get_info()
 print(info)
 """
 
+
+
+
+"""
 MySpeedPID = PID(402.6,402.6/1.028,0,-90,90)
 K = 5
 #MyDistPID = PID(114.13/K,64.9/K,4.47/K,-3,3)
 #MyAnglePID = PID(-13.88/5,-24.9/5,-3.11/5,-100,100)
-MyDistPID = PID(5 00,200,0,-100,100)
+MyDistPID = PID(500,200,0,-100,100)
 MyAnglePID = PID(-10,-1,0,-100,100)
 
 INIT = 1
@@ -265,7 +270,7 @@ while(1):
         d_mes = (d_r+d_l)/2
         phi_mes = (d_r-d_l)/b
 
-        """
+        #to removz
         #print(len(d_passed_mes))
         if (len(d_passed_mes) < passed):
             d_passed_mes.append(d_mes)
@@ -283,7 +288,7 @@ while(1):
             d_mean+=d_passed_mes[j]
             a_mean+=a_passed_mes[j]
         i+=1
-        """
+        #to remove
 
         #Test en BF
         out_d = MyDistPID.command(d_mes)#an/passed)
@@ -301,6 +306,9 @@ while(1):
 
 stop = time.time()
 print("start : {} ; stop {} ; diff {}".format(start,stop,stop-start))
+
+"""
+
 
 """
 lidar.stop()

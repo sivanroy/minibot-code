@@ -17,8 +17,8 @@ P_s = 402.6;I_s = P_s/1.028;D_s = 0; #wheel speed controller param
 
 #P_d = 114.13  ;I_d = 64.9  ;D_d = 4.47;
 #P_a = 13.88  ;I_a = 24.9  ;D_a = 3.11;
-P_d =  10  ;I_d = 0  ;D_d = 0;
-P_a = -10  ;I_a = 0  ;D_a = 0;
+P_d = 10  ;I_d = 0  ;D_d = 0;
+P_a = 10  ;I_a = 0  ;D_a = 0;
 
 
 deltat = 2e-3   #time btwn two mesures of the encoders
@@ -47,7 +47,7 @@ class PID(object):
         self.I_a = []
         self.D_a = []
 
-    def limiter(val,MIN,MAX):
+    def limiter(self,val,MIN,MAX):
         if (MIN != None):
             val = max(val,MIN)
         if (MAX != None):
@@ -59,7 +59,7 @@ class PID(object):
         self.I = I
         self.D = D
 
-    def set_limit(MIN = None,MAX = None):
+    def set_limit(self,MIN = None,MAX = None):
         self.MIN = MIN
         self.MAX = MAX
 

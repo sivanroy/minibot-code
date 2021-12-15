@@ -7,7 +7,7 @@ from controller import *
 import time
 
 c = 4
-MAXDIST = 600
+MAXDIST = 1000
 MINDIST = 300
 ERROR = 20
 speed = 1
@@ -133,12 +133,55 @@ def closed_loop_ref(scan_data,MyRobot
 
 def closed_loop(scan_data,MyRobot):
     d_p,theta_p = closer(scan_data)
-    if(d_p > MINDIST and d_p < MAXDIST):
-        MyRobot.controller.set_ref_polar((d_p-MINDIST)*1000,theta_p*3.14/180)
-        print(d_p,theta_p)
-    else:
-        MyRobot.controller.set_ref_polar(0,0)
+    K_p_d = 1000
+    K_p_a = 200
+    MyController = MyRobot.controller
+    MyDE02RPI = MyController.DE02RPI
+    print("go here")
+    #if(d_p > MINDIST and d_p < MAXDIST):
+    d_ref = (d_p-MINDIST)/1000
+    theta_ref = (theta_p-180)*3.14/180
 
+    m_l = MyDE02RPI.mes_left(1)
+    m_r = MyDE02RPI.mes_right(1)
+
+    b = 0.2345 
+    D = D_wheel
+
+    d_l = m_l * D
+    d_r = m_r * D
+    d_mes = (d_r+d_l)/2
+    phi_mes = (d_r-d_l)/b
+
+    #P
+    dout = K_p_d*(d_ref-d_mes)
+    alphaout = K_p_a*(theta_ref-phi_mes)
+    sp_l = dout+alphaout
+    sp_r = dout-alphaout
+
+    #setpoint
+    MyController.PID_speed_l.set_setpoint(sp_l)
+    MyController.PID_speed_r.set_setpoint(sp_r)
+    
+    #take out and sent to wheels
+    out_l = MyController.PID_speed_l.command(m_l)
+    out_r = MyController.PID_speed_r.command(m_r)
+
+    MyRobot.set_speeds(out_l,out_r)
+
+    #print("[{};{}]".format(d_ref , theta_ref))
+    print("[{};{}]".format(dout , alphaout))
+    #print("d_mes {}:: d_ref{}\nphi_mes{}::phi_ref{}".\
+        #format(d_mes,d_ref,phi_mes,theta_ref))
+
+    #print(d_p,theta_p)
+
+
+    """else:
+        MyRobot.controller.set_ref_polar(0,0)
+        MyRobot.set_speeds(0,0)
+        print("to close")
+"""
 
 
 def headquarters(scan_data,MyRobot):
