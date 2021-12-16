@@ -18,9 +18,9 @@ PID_speed_r = PID(100,1,0,-100,100)
 PID_dist =  PID(1000,0,0)
 PID_angle = PID(200,0,0)
 
-x = [0]
-y = [0]
-theta = [0]
+x_shared = [0]
+y_shared = [0]
+theta_shared = [0]
 i = 0
 
 def buttonON(MyRobot):
@@ -89,18 +89,18 @@ def closed_loop(scan_data,MyRobot):
     #PID phi et d
     PID_dist.set_setpoint(d_ref)
     dout =  PID_dist.command(d_mes)
-    PID_angle.set_setpoint(phi_ref)
+    PID_angle.set_setpoint(theta_ref)
     alphaout = PID_angle.command(phi_mes)
     sp_l = dout+alphaout
     sp_r = dout-alphaout
 
     #setpoint of wheels
-    MyController.PID_speed_l.set_setpoint(sp_l)
-    MyController.PID_speed_r.set_setpoint(sp_r)
+    PID_speed_l.set_setpoint(sp_l)
+    PID_speed_r.set_setpoint(sp_r)
     
     #take out and sent to wheels
-    out_l = MyController.PID_speed_l.command(m_l)
-    out_r = MyController.PID_speed_r.command(m_r)
+    out_l = PID_speed_l.command(m_l)
+    out_r = PID_speed_r.command(m_r)
 
     MyRobot.set_speeds(out_l,out_r)
 

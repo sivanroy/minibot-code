@@ -77,7 +77,7 @@ class PID(object):
         output_D = (e_k-e_km1)/deltat*D
         if (self.doPlot):
             self.P_a.append(output_P);self.I_a.append(output_I);self.D_a.append(output_D);
-        output = limiter(output_P+output_I+output_D,self.MIN,self.MAX)
+        output = self.limiter(output_P+output_I+output_D,self.MIN,self.MAX)
         self.last = e_k 
         return output
 
@@ -86,3 +86,15 @@ class PID(object):
         if (verbose):
             print("ref {};mes {}::out {}".format(self.sp,mes,output))
         return output
+
+
+class Controller(object):
+    def __init__(self, MyRobot):
+        self.thread_exit = 1
+        self.MyRobot = MyRobot 
+        #actual values
+        self.theta = 0
+        self.x = 0
+        self.y = 0
+        #DEO nano talk
+        self.DE02RPI = DE02Rpi(self)
