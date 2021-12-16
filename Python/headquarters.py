@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO
 from robot import *
 from displacement import *
 from controller import *
+from FIFO import *
 #from button import buttonOn
 import time
 
@@ -16,6 +17,9 @@ deltat = 2e-3
 
 PID_dist =  PID(30,10,0,-1000,1000)
 PID_angle = PID(3,0.02,0,-1000,1000)
+#fifo_l = FIFO(1)
+#fifo_r = FIFO(1)
+
 
 def buttonON(MyRobot):
     Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
@@ -181,6 +185,10 @@ def closed_loop(scan_data,MyRobot):
     out_l = MyController.PID_speed_l.command(m_l,1)
     out_r = MyController.PID_speed_r.command(m_r,1)
 
+    #fifo_l.push(out_l)
+    #fifo_r.push(out_r)
+
+    #MyRobot.set_speeds(fifo_l.get_mean(),fifo_r.get_mean())
     MyRobot.set_speeds(out_l,out_r)
     
     print("\n[{};{}]\n".format(out_l , out_r))
