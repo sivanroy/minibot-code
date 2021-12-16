@@ -2,7 +2,7 @@ from rplidar import RPLidar
 import RPi.GPIO as GPIO
 import time
 import numpy as np
-import controller as c
+import headquarters as h
 from robot import *
 
 #begin motors
@@ -23,10 +23,9 @@ for i, lidar_scan in enumerate(lidar.iter_scans()):
     for scan in (lidar_scan):  # each scan = [quality,angle,dist]
         theta.append(scan[1])
         dist.append(scan[2])
-    info_c = c.controller([dist,theta],MyRobot)
+    info_c = h.headquarters([dist,theta],MyRobot)
     if (info_c == -1):
         break
-
 
 lidar.stop()
 lidar.stop_motor()

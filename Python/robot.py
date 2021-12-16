@@ -1,11 +1,12 @@
 import RPi.GPIO as GPIO
 from displacement import *
 from buttons import *
+from controller import *
+
 class Sensors(object):
     def __init__(self):
         self.buttons = Buttons();
         self.lidar = None
-
 
 class Actuators(object):
     def __init__(self):
@@ -37,7 +38,11 @@ class Robot(object):
         self.ON = 0
         self.sensors = Sensors()
         self.actuators = Actuators()
+        self.controller = Controller(self)
         self.infos = Infos()
+
+    def stop_motor(self):
+        self.set_speeds(0,0)
 
     def set_speeds(self, speedl,speedr):
         self.actuators.motors.set_speeds(speedl,speedr);
@@ -49,7 +54,11 @@ class Robot(object):
         return self.ON
 
     def activate(self):
+        print("Activate the robot \n")
         self.ON = 1
 
     def shutdown(self):
+        print("Shutdown the Robot \n")
+        self.controller.thread_exit = 1
+        self.stop_motor()
         self.ON = 0

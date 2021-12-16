@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-
+from robot import *
 class Button(object):
     def __init__(self,pin):
         self.ON = 0
@@ -41,3 +41,4 @@ class Buttons(object):
     def print_infos(self):
         print("Button #1 :\n")
         self.button1.print_infos()
+
