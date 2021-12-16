@@ -18,6 +18,11 @@ PID_speed_r = PID(100,1,0,-100,100)
 PID_dist =  PID(1000,0,0)
 PID_angle = PID(200,0,0)
 
+x = [0]
+y = [0]
+theta = [0]
+i = 0
+
 def buttonON(MyRobot):
     Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
     if (Mybutton1.wasPushed() == 0):
@@ -58,6 +63,15 @@ def compute_d_phi(m_l,m_r):
     d_mes = (d_r+d_l)/2
     phi_mes = (d_r-d_l)/b
     return d_mes,phi_mes
+
+def upsate_pos(d_mes, phi_mes, ind):
+    x_new = x[ind] + d_mes * np.cos(theta[ind] + phi_mes / 2)
+    y_new = y[ind] + d_mes * np.sin(theta[ind] + phi_mes / 2)
+    theta_new = theta[ind] + phi_mes
+    x.append(x_new)
+    y.append(y_new)
+    theta.append(theta_new)
+    ind += 1
 
 def closed_loop(scan_data,MyRobot):
     d_p,theta_p = closer(scan_data)
