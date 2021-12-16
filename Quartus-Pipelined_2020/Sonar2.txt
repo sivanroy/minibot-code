@@ -1,0 +1,40 @@
+
+module Sonar  (input  logic clk, echo,
+					output logic trigger,
+					output logic [31:0] count);
+					
+	logic [31:0] dt, cnt, inc;
+	logic triggerON;
+	
+	
+	always_ff @(posedge clk) begin
+		if (dt == 32'd0) begin
+			triggerON <= 1'b1;
+			dt <= dt + 32'd1;
+		end
+		else if (dt == 32'd1000) begin
+			triggerON <= 1'b0;
+			dt <= dt + 32'd1;
+		end
+		else if (dt == 32'd3_001_000) begin  // 60_010µ/20n = 3_000_500
+			dt <= 32'd0;
+			triggerON <= 1'b1;
+			cnt <= inc;
+			inc <= 32'd0;
+		end
+		else begin
+			dt <= dt + 32'd1;
+		end
+
+		if (echo) inc <= inc + 32'd1;
+		
+		if (triggerON) trigger <= 1'b1;
+		else trigger <= 1'b0;
+	end
+	
+	
+	assign count = cnt;
+	
+endmodule
+
+
