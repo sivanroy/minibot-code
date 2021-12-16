@@ -5,8 +5,9 @@ from displacement import *
 from controller import *
 #from button import buttonOn
 import time
+import matplotlib.pyplot as plt
 
-c = 4
+c = 1
 MAXDIST = 1000
 MINDIST = 300
 ERROR = 20
@@ -85,55 +86,6 @@ def follow(scan_data,MyRobot):
         motors.set_speeds(speed, speed)
 
 
-def dodge(scan_data):
-	return 1
-
-def test_theta_ref(scan_data,MyRobot):
-    SLEEP = 1
-    ref = [0,1,2,0.05,0]
-    for value in ref:
-        MyRobot.controller.set_ref_polar(value,0,1)
-        print(value)
-        if (SLEEP): 
-            time.sleep(5)
-            print("sleep")
-
-"""
-
-"""
-def closed_loop_omega(scan_data,MyRobot):
-    MyController = MyRobot.controller
-    PID_obj = MyController.PID_obj
-    i = 0
-    if (i<100):
-        PID_obj.set_setpoint_l(i)
-        PID_obj.set_setpoint_r(i)
-        i+=1
-
-
-"""
-theta / dist reference
-"""
-"""
-def closed_loop_ref(scan_data,MyRobot
-    ):
-    verbose = 0
-    dist_p, theta_p = closer(scan_data,MyRobot)
-    theta_p -= np.pi/2
-
-    if(dist_p < 300):
-        MyRobot.controller.set_polar(0,0)
-        if (verbose) :print("To close")
-    else:
-        if(index<100): 
-            index += 1
-        else:
-            MyRobot.controller.set_polar(dist_p/1000,theta_p)
-            index = 0
-
-    if(verbose): print(MyRobot.controller.PID_obj.omega_mes_l)
-"""
-
 
 def closed_loop(scan_data,MyRobot):
     d_p,theta_p = closer(scan_data)
@@ -176,6 +128,9 @@ def closed_loop(scan_data,MyRobot):
     out_r = MyController.PID_speed_r.command(m_r,1)
 
     MyRobot.set_speeds(out_l,out_r)
+
+    # update position
+    MyController.compute_update_pos(m_l, m_r, 1)
     
     print("\n[{};{}]\n".format(out_l , out_r))
     #print("[{};{}]".format(d_ref , theta_ref))
@@ -185,15 +140,9 @@ def closed_loop(scan_data,MyRobot):
     #print(d_p,theta_p)
 
 
-    """else:
-        MyRobot.controller.set_ref_polar(0,0)
-        MyRobot.set_speeds(0,0)
-        print("to close")
-"""
-
 
 def headquarters(scan_data,MyRobot):
-    c = 4
+    c = 1
     WhatToDo = buttonON(MyRobot)
     if (WhatToDo == -1):
         MyRobot.shutdown()
@@ -202,12 +151,32 @@ def headquarters(scan_data,MyRobot):
         if  (c == 0): 
             follow(scan_data,MyRobot)
         #elif(c == 1): closed_loop_ref(scan_data,MyRobot)
-        elif(c == 2): 
-            closed_loop_omega(scan_data,MyRobot)
-        elif(c == 3): 
-            test_theta_ref(scan_data,MyRobot)
-        elif(c == 4):
+        elif(c == 1):
             closed_loop(scan_data,MyRobot)  
         else:
             print("nothing to do in headquarters")
     return 1
+
+
+def plot_pos(MyRobot):
+    MyController = MyRobot.controller
+    x, y = MyController.return_pos_track()
+
+    max_x = max(x)
+    max_y = max(y)
+    min_x = min(x)
+    min_y = min(y)
+    Max = max(max_x, max_y)
+    Min = min(min_x, min_y)
+    print(min_x, max_x)
+    print(min_y, max_y)
+    print(Min, Max)
+
+    plt.plot(x, y)
+    plt.title('Position tracking')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.xlim((Min, Max))
+    plt.ylim((Min, Max))
+    plt.show()
+

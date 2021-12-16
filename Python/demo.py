@@ -25,6 +25,7 @@ for i, lidar_scan in enumerate(lidar.iter_scans()):
         dist.append(scan[2])
     info_c = h.headquarters([dist,theta],MyRobot)
     if (info_c == -1):
+        h.plot_pos(MyRobot)
         break
 
 lidar.stop()

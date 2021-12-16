@@ -15,11 +15,6 @@ import matplotlib.pyplot as plt
 
 P_s = 402.6/100;I_s = 4; D_s=0#.005#P_s/1.028;D_s = 0; #wheel speed controller param
 
-#P_d = 114.13  ;I_d = 64.9  ;D_d = 4.47;
-#P_a = 13.88  ;I_a = 24.9  ;D_a = 3.11;
-P_d = 10  ;I_d = 0  ;D_d = 0;
-P_a = 10  ;I_a = 0  ;D_a = 0;
-
 
 deltat = 2e-3   #time btwn two mesures of the encoders
 b = 0.2345      #lenght btwn wheels
@@ -93,6 +88,10 @@ class Controller(object):
         self.theta = 0
         self.x = 0
         self.y = 0
+        self.x_track = [0]
+        self.y_track = [0]
+        self.theta_track = [0]
+
         #mes
         self.mes_r = 0
         self.mes_l = 0
@@ -102,15 +101,9 @@ class Controller(object):
         self.PID_speed_l = PID(P_s,I_s,D_s,-30,60)
         self.PID_speed_r = PID(P_s,I_s,D_s,-30,60)
 
-        self.PID_dist = PID(P_d,I_d,D_d,-2,2)
-        self.PID_angle = PID(P_a,I_a,D_a,-3,3)
         #DEO nano talk
         self.DE02RPI = DE02Rpi(self)
         #self.DE02RPI.start_thread()
-
-    def set_ref_polar(self,d_ref,phi_ref):
-        self.PID_dist.set_setpoint(d_ref)
-        self.PID_angle.set_setpoint(phi_ref)
 
     def send_to_motors(self,u_l,u_r):
         self.MyRobot.set_speeds(u_l,u_r)
@@ -120,47 +113,29 @@ class Controller(object):
         self.y = y
         self.theta = theta
 
+        self.x_track.append(self.x)
+        self.y_track.append(self.y)
+        self.theta_track.append(self.theta)
+
     def compute_update_pos(self,mes_l,mes_r,Encoder = 0):
         D = D_odo
         if (Encoder):
             D = D_wheel
-        d_l = mes_l * D
-        d_r = mes_r * D
+        d_l = (mes_l * D/2) * deltat
+        d_r = (mes_r * D/2) * deltat
         d = (d_r+d_l)/2
         phi = (d_r-d_l)/b
-        x = self.x + d * math.cos(self.theta + phi/2)
-        y = self.y + d * math.sin(self.theta + phi/2)
-        theta = self.theta + phi
-        self.update_pos(x,y,theta)
-        return d,phi
+        x_new = self.x + d * math.cos(self.theta + phi/2)
+        y_new = self.y + d * math.sin(self.theta + phi/2)
+        theta_new = self.theta + phi
+        self.update_pos(x_new,y_new,theta_new)
 
-    def set_measures(self,mes_l,mes_r):
+    def return_pos_track(self):
+        return self.x_track, self.y_track
+
+    def set_measures(self, mes_l, mes_r):
         self.mes_r = mes_r
         self.mes_l = mes_l
         self.d_mes_l = mes_l#+= mes_l
         self.d_mes_r = mes_r#+= mes_r
 
-    def compute_all_chain(self,Encoder=0,verbose=0):
-        D = D_odo
-        if (Encoder): D = D_wheel
-        #first
-        dist_r = self.d_mes_r*2*math.pi*D/2
-        dist_l = self.d_mes_l*2*math.pi*D/2
-        omega_l_meas = self.d_mes_l*2*math.pi/deltat
-        omega_r_meas = self.d_mes_r*2*math.pi/deltat
-
-        theta_mes = (self.d_mes_r-self.d_mes_l)/b
-        d_mes = (self.d_mes_l+self.d_mes_r)/2
-        theta_p = self.PID_angle.command(theta_mes)
-        d_p = self.PID_dist.command(d_mes)
-        #second
-        omega_l_ref = theta_p + d_p
-        omega_r_ref = theta_p - d_p
-        #wheels
-        self.PID_speed_l.set_setpoint(omega_l_ref)
-        u_l = self.PID_speed_l.command(omega_l_meas,verbose)
-        self.PID_speed_r.set_setpoint(omega_r_ref)
-        u_r = self.PID_speed_r.command(omega_r_meas,verbose)
-        #send_to_motor
-        #self.MyRobot.set_speeds(u_l,u_r)
-        return u_l,u_r

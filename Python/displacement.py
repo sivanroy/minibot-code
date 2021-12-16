@@ -6,6 +6,7 @@ FREQ = 1e3
 def io_init():
     PWM1, PWM2, DIR1, DIR2 = 12, 13, 5, 6
     GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
     GPIO.setup(PWM1, GPIO.OUT)
     GPIO.setup(PWM2, GPIO.OUT)
     GPIO.setup(DIR1, GPIO.OUT)

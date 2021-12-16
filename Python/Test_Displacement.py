@@ -1,7 +1,9 @@
-from displacement import motors, MAX_SPEED
+from displacement import *
 import time
 
 def test():
+
+    motors = Motors()
 
     speed = 1
     motors.start_all()
@@ -23,3 +25,6 @@ def test():
     time.sleep(2)
 
     motors.stop_all()
+
+
+test()
