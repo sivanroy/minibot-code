@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 #P_dw = 1  ;I_dw = 0  ;D_dw = 0;
 
-P_s = 402.6;I_s = P_s/1.028;D_s = 0; #wheel speed controller param
+P_s = 402.6/100;I_s = P_s/1.028;D_s = 0; #wheel speed controller param
 
 #P_d = 114.13  ;I_d = 64.9  ;D_d = 4.47;
 #P_a = 13.88  ;I_a = 24.9  ;D_a = 3.11;
@@ -99,8 +99,8 @@ class Controller(object):
         self.d_mes_l = 0
         self.d_mes_r = 0
         #PID's controller for each wheel
-        self.PID_speed_l = PID(P_s,I_s,D_s,-100,100)
-        self.PID_speed_r = PID(P_s,I_s,D_s,-100,100)
+        self.PID_speed_l = PID(P_s,I_s,D_s,-30,60)
+        self.PID_speed_r = PID(P_s,I_s,D_s,-30,60)
 
         self.PID_dist = PID(P_d,I_d,D_d,-2,2)
         self.PID_angle = PID(P_a,I_a,D_a,-3,3)

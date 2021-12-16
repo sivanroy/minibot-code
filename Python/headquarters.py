@@ -12,9 +12,10 @@ MINDIST = 300
 ERROR = 20
 speed = 1
 index = 0
+deltat = 2e-3
 
-PID_dist =  PID(1000,0,0)
-PID_angle = PID(200,0,0)
+PID_dist =  PID(30,10,0,-1000,1000)
+PID_angle = PID(3,0.02,0,-1000,1000)
 
 def buttonON(MyRobot):
     Mybutton1 = MyRobot.sensors.buttons.button1 #gere le button
@@ -136,11 +137,10 @@ def closed_loop_ref(scan_data,MyRobot
 
 def closed_loop(scan_data,MyRobot):
     d_p,theta_p = closer(scan_data)
-    K_p_d = 1000
-    K_p_a = 200
+    #K_p_d = 1
+    #K_p_a = 0.01
     MyController = MyRobot.controller
     MyDE02RPI = MyController.DE02RPI
-    print("go here")
     #if(d_p > MINDIST and d_p < MAXDIST):
     d_ref = (d_p-MINDIST)/1000
     theta_ref = (theta_p-180)*3.14/180
@@ -158,10 +158,11 @@ def closed_loop(scan_data,MyRobot):
 
     #P
     PID_dist.set_setpoint(d_ref)
-    dout =  PID_dist.command(d_mes)
+    print("theta-phi ref \n")
+    dout =  PID_dist.command(d_mes,1)
     #dout = K_p_d*(d_ref-d_mes)
-    PID_angle.set_setpoint(phi_ref)
-    alphaout = PID_angle.command(phi_mes)
+    PID_angle.set_setpoint(theta_ref)
+    alphaout = PID_angle.command(phi_mes,1)
     #alphaout = K_p_a*(theta_ref-phi_mes)
     sp_l = dout+alphaout
     sp_r = dout-alphaout
@@ -170,16 +171,17 @@ def closed_loop(scan_data,MyRobot):
     MyController.PID_speed_r.set_setpoint(sp_r)
     
     #take out and sent to wheels
-    out_l = MyController.PID_speed_l.command(m_l)
-    out_r = MyController.PID_speed_r.command(m_r)
+    print("m_l m_r\n")
+    out_l = MyController.PID_speed_l.command(m_l,1)
+    out_r = MyController.PID_speed_r.command(m_r,1)
 
     MyRobot.set_speeds(out_l,out_r)
-
+    
+    print("\n[{};{}]\n".format(out_l , out_r))
     #print("[{};{}]".format(d_ref , theta_ref))
-    print("[{};{}]".format(dout , alphaout))
+    #print("[{};{}]".format(dout , alphaout))
     #print("d_mes {}:: d_ref{}\nphi_mes{}::phi_ref{}".\
         #format(d_mes,d_ref,phi_mes,theta_ref))
-
     #print(d_p,theta_p)
 
 
