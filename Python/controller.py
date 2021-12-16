@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 #P_dw = 1  ;I_dw = 0  ;D_dw = 0;
 
-P_s = 402.6/100;I_s = P_s/1.028;D_s = 0; #wheel speed controller param
+P_s = 402.6/100;I_s = 4; D_s=0#.005#P_s/1.028;D_s = 0; #wheel speed controller param
 
 #P_d = 114.13  ;I_d = 64.9  ;D_d = 4.47;
 #P_a = 13.88  ;I_a = 24.9  ;D_a = 3.11;
