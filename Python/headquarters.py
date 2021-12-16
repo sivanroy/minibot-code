@@ -156,10 +156,16 @@ def closed_loop(scan_data,MyRobot):
     d_mes = (d_r+d_l)/2
     phi_mes = (d_r-d_l)/b
 
+    do = 1
+    #if(abs(d_ref-d_mes)<0.1):
+    #    do = 0
+    #    print("to close")
     #P
     PID_dist.set_setpoint(d_ref)
     print("theta-phi ref \n")
     dout =  PID_dist.command(d_mes,1)
+    #if (do==0):
+    #    dout = 0
     #dout = K_p_d*(d_ref-d_mes)
     PID_angle.set_setpoint(theta_ref)
     alphaout = PID_angle.command(phi_mes,1)
